@@ -1,0 +1,6 @@
+.DS_Store
+Pods/*
+Podfile.lock
+RobinsLight.xcworkspace/xcuserdata
+RobinsLight.xcodeproj/xcuserdata
+RobinsLight.xcodeproj/project.xcworkspace/xcuserdata/

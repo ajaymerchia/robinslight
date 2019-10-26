@@ -1,0 +1,470 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B71DCEB523640E0500D54AF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEB423640E0500D54AF1 /* AppDelegate.swift */; };
+		B71DCEB723640E0500D54AF1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEB623640E0500D54AF1 /* SceneDelegate.swift */; };
+		B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEB823640E0500D54AF1 /* BluetoothViewController.swift */; };
+		B71DCEBC23640E0500D54AF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBA23640E0500D54AF1 /* Main.storyboard */; };
+		B71DCEBE23640E0500D54AF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBD23640E0500D54AF1 /* Assets.xcassets */; };
+		B71DCEC123640E0500D54AF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBF23640E0500D54AF1 /* LaunchScreen.storyboard */; };
+		B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEC82364100000D54AF1 /* BluetoothManager.swift */; };
+		B71DCECD23641A3700D54AF1 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71DCECC23641A3700D54AF1 /* ExternalAccessory.framework */; };
+		B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED12364444A00D54AF1 /* DataStack.swift */; };
+		B71DCED42364447000D54AF1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED32364447000D54AF1 /* Utils.swift */; };
+		B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED5236444C000D54AF1 /* RobinsCache.swift */; };
+		B71DCED8236444FD00D54AF1 /* SetManagerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */; };
+		F003907E695E218A2367D5FC /* Pods_RobinsLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03892C8496FE1B80F9CF2191 /* Pods-RobinsLight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RobinsLight.debug.xcconfig"; path = "Target Support Files/Pods-RobinsLight/Pods-RobinsLight.debug.xcconfig"; sourceTree = "<group>"; };
+		3ED081D96AAE1739F2E39996 /* Pods-RobinsLight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RobinsLight.release.xcconfig"; path = "Target Support Files/Pods-RobinsLight/Pods-RobinsLight.release.xcconfig"; sourceTree = "<group>"; };
+		44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RobinsLight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71DCEB123640E0500D54AF1 /* RobinsLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RobinsLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71DCEB423640E0500D54AF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B71DCEB623640E0500D54AF1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B71DCEB823640E0500D54AF1 /* BluetoothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewController.swift; sourceTree = "<group>"; };
+		B71DCEBB23640E0500D54AF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B71DCEBD23640E0500D54AF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B71DCEC023640E0500D54AF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B71DCEC223640E0500D54AF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B71DCEC82364100000D54AF1 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		B71DCECA23641A3700D54AF1 /* RobinsLight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RobinsLight.entitlements; sourceTree = "<group>"; };
+		B71DCECC23641A3700D54AF1 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		B71DCED12364444A00D54AF1 /* DataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStack.swift; sourceTree = "<group>"; };
+		B71DCED32364447000D54AF1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B71DCED5236444C000D54AF1 /* RobinsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinsCache.swift; sourceTree = "<group>"; };
+		B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetManagerScreen.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B71DCEAE23640E0500D54AF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B71DCECD23641A3700D54AF1 /* ExternalAccessory.framework in Frameworks */,
+				F003907E695E218A2367D5FC /* Pods_RobinsLight.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B71DCEA823640E0500D54AF1 = {
+			isa = PBXGroup;
+			children = (
+				B71DCEB323640E0500D54AF1 /* RobinsLight */,
+				B71DCEB223640E0500D54AF1 /* Products */,
+				B71DCECB23641A3700D54AF1 /* Frameworks */,
+				E46BF85AD45B0369A14627DC /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		B71DCEB223640E0500D54AF1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCEB123640E0500D54AF1 /* RobinsLight.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B71DCEB323640E0500D54AF1 /* RobinsLight */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCECA23641A3700D54AF1 /* RobinsLight.entitlements */,
+				B71DCED32364447000D54AF1 /* Utils.swift */,
+				B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */,
+				B71DCED02364444100D54AF1 /* Managers */,
+				B71DCECE236443BD00D54AF1 /* SysDelegates */,
+				B71DCECF236443DB00D54AF1 /* BluetoothExperiment */,
+				B71DCEBD23640E0500D54AF1 /* Assets.xcassets */,
+				B71DCEBA23640E0500D54AF1 /* Main.storyboard */,
+				B71DCEBF23640E0500D54AF1 /* LaunchScreen.storyboard */,
+				B71DCEC223640E0500D54AF1 /* Info.plist */,
+			);
+			path = RobinsLight;
+			sourceTree = "<group>";
+		};
+		B71DCECB23641A3700D54AF1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCECC23641A3700D54AF1 /* ExternalAccessory.framework */,
+				44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B71DCECE236443BD00D54AF1 /* SysDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCEB423640E0500D54AF1 /* AppDelegate.swift */,
+				B71DCEB623640E0500D54AF1 /* SceneDelegate.swift */,
+			);
+			path = SysDelegates;
+			sourceTree = "<group>";
+		};
+		B71DCECF236443DB00D54AF1 /* BluetoothExperiment */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCEB823640E0500D54AF1 /* BluetoothViewController.swift */,
+				B71DCEC82364100000D54AF1 /* BluetoothManager.swift */,
+			);
+			path = BluetoothExperiment;
+			sourceTree = "<group>";
+		};
+		B71DCED02364444100D54AF1 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCED12364444A00D54AF1 /* DataStack.swift */,
+				B71DCED5236444C000D54AF1 /* RobinsCache.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		E46BF85AD45B0369A14627DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				03892C8496FE1B80F9CF2191 /* Pods-RobinsLight.debug.xcconfig */,
+				3ED081D96AAE1739F2E39996 /* Pods-RobinsLight.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B71DCEB023640E0500D54AF1 /* RobinsLight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B71DCEC523640E0500D54AF1 /* Build configuration list for PBXNativeTarget "RobinsLight" */;
+			buildPhases = (
+				652682562F2091120D4F8F3C /* [CP] Check Pods Manifest.lock */,
+				B71DCEAD23640E0500D54AF1 /* Sources */,
+				B71DCEAE23640E0500D54AF1 /* Frameworks */,
+				B71DCEAF23640E0500D54AF1 /* Resources */,
+				9416C34B3135E8F78EF4B853 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RobinsLight;
+			productName = RobinsLight;
+			productReference = B71DCEB123640E0500D54AF1 /* RobinsLight.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B71DCEA923640E0500D54AF1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Mobile Developers of Berkeley";
+				TargetAttributes = {
+					B71DCEB023640E0500D54AF1 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+				};
+			};
+			buildConfigurationList = B71DCEAC23640E0500D54AF1 /* Build configuration list for PBXProject "RobinsLight" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B71DCEA823640E0500D54AF1;
+			productRefGroup = B71DCEB223640E0500D54AF1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B71DCEB023640E0500D54AF1 /* RobinsLight */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B71DCEAF23640E0500D54AF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B71DCEC123640E0500D54AF1 /* LaunchScreen.storyboard in Resources */,
+				B71DCEBE23640E0500D54AF1 /* Assets.xcassets in Resources */,
+				B71DCEBC23640E0500D54AF1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		652682562F2091120D4F8F3C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RobinsLight-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9416C34B3135E8F78EF4B853 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RobinsLight/Pods-RobinsLight-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RobinsLight/Pods-RobinsLight-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RobinsLight/Pods-RobinsLight-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B71DCEAD23640E0500D54AF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B71DCED8236444FD00D54AF1 /* SetManagerScreen.swift in Sources */,
+				B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */,
+				B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */,
+				B71DCEB523640E0500D54AF1 /* AppDelegate.swift in Sources */,
+				B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */,
+				B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */,
+				B71DCEB723640E0500D54AF1 /* SceneDelegate.swift in Sources */,
+				B71DCED42364447000D54AF1 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B71DCEBA23640E0500D54AF1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B71DCEBB23640E0500D54AF1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B71DCEBF23640E0500D54AF1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B71DCEC023640E0500D54AF1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B71DCEC323640E0500D54AF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B71DCEC423640E0500D54AF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B71DCEC623640E0500D54AF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03892C8496FE1B80F9CF2191 /* Pods-RobinsLight.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RobinsLight/RobinsLight.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = 9T3JS4TFUB;
+				INFOPLIST_FILE = RobinsLight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mdb.devcore.RobinsLight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B71DCEC723640E0500D54AF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ED081D96AAE1739F2E39996 /* Pods-RobinsLight.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RobinsLight/RobinsLight.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				DEVELOPMENT_TEAM = 9T3JS4TFUB;
+				INFOPLIST_FILE = RobinsLight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mdb.devcore.RobinsLight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B71DCEAC23640E0500D54AF1 /* Build configuration list for PBXProject "RobinsLight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B71DCEC323640E0500D54AF1 /* Debug */,
+				B71DCEC423640E0500D54AF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B71DCEC523640E0500D54AF1 /* Build configuration list for PBXNativeTarget "RobinsLight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B71DCEC623640E0500D54AF1 /* Debug */,
+				B71DCEC723640E0500D54AF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B71DCEA923640E0500D54AF1 /* Project object */;
+}
