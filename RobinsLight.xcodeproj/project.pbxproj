@@ -35,6 +35,7 @@
 		B78848C523645D4900D3A9DF /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C423645D4900D3A9DF /* Song.swift */; };
 		B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C723649D3700D3A9DF /* TimelineCell.swift */; };
 		B78848CA2364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */; };
+		B78848CC2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848CB2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift */; };
 		F003907E695E218A2367D5FC /* Pods_RobinsLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		B78848C423645D4900D3A9DF /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		B78848C723649D3700D3A9DF /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-runtime.swift"; sourceTree = "<group>"; };
+		B78848CB2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-sys.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */,
 				B78848BD2364597B00D3A9DF /* RoutineEditorScreen-logic.swift */,
 				B78848BF23645A8400D3A9DF /* RoutineEditorScreen-table.swift */,
+				B78848CB2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift */,
 				B78848C623645FA200D3A9DF /* SupportViews */,
 			);
 			path = RoutineEditorScreen;
@@ -348,6 +351,7 @@
 				B78848B72364573800D3A9DF /* RoutineEditorScreen.swift in Sources */,
 				B78848BA236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift in Sources */,
 				B78848BC236457C000D3A9DF /* RoutineManagerScreen-sys.swift in Sources */,
+				B78848CC2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift in Sources */,
 				B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */,
 				B78848C523645D4900D3A9DF /* Song.swift in Sources */,
 				B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */,

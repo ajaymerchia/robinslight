@@ -154,7 +154,7 @@ extension Array {
 extension TimeInterval {
 	var friendlyFormat: String? {
 		let formatter = DateComponentsFormatter()
-		formatter.unitsStyle = .full
+		formatter.unitsStyle = .short
 		formatter.allowedUnits = NSCalendar.Unit(rawValue: NSCalendar.Unit.hour.rawValue | NSCalendar.Unit.minute.rawValue | NSCalendar.Unit.second.rawValue)
 
 		let now = Date()

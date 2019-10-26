@@ -25,6 +25,8 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 		self.alerts.showActionSheet(withTitle: song.commonName, andDetail: nil, configs: [
 			ActionConfig(title: "Remove song", style: .default, callback: {
 				self.routine.songs.remove(at: idx)
+				self.updateState()
+				RobinCache.records(for: Routine.self).store(self.routine, completion: nil)
 			}),
 			ActionConfig(title: "Move song", style: .default, callback: {
 				self.alerts.displayAlert(titled: .err, withDetail: "We haven't implemented moving songs yet", completion: nil)
@@ -123,6 +125,7 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 				print("finished storing")
 			}
 			// update view state
+			self.updateState()
 		}
 		
 		// clarify where to add it

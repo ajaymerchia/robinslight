@@ -44,7 +44,6 @@ class TimelineCell: UITableViewCell {
 	
 	var delegate: TimelineCellDelegate?
 	
-	var onSongSelect: BlankClosure?
 	
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -138,11 +137,13 @@ class TimelineCell: UITableViewCell {
 			
 			let songLabel = UILabel(); songBar.addSubview(songLabel)
 				songLabel.translatesAutoresizingMaskIntoConstraints = false
-				songLabel.leadingAnchor.constraint(equalTo: songBar.leadingAnchor, constant: .padding).isActive = true
+				songLabel.leadingAnchor.constraint(equalTo: songBar.leadingAnchor, constant: .mPadding).isActive = true
 				songLabel.topAnchor.constraint(equalTo: songBar.topAnchor, constant: .mPadding).isActive = true
+				songLabel.trailingAnchor.constraint(equalTo: songBar.trailingAnchor, constant: -.mPadding)
 			songLabel.font = UIFont.systemFont(ofSize: 12, weight: .black)
 			songLabel.text = event.timelineDescription
-			songLabel.adjustsFontSizeToFitWidth = true
+			
+			
 			
 			
 			prevLeftAnchor = songBar.trailingAnchor
@@ -170,10 +171,10 @@ class TimelineCell: UITableViewCell {
 		scrollView.contentSize = CGSize(width: totalTrackPixels, height: scrollView.frame.height)
 		scrollView.showsHorizontalScrollIndicator = false
 		
-		scrollView.canCancelContentTouches = false
-		scrollView.isExclusiveTouch = false
-		scrollView.isUserInteractionEnabled = true
-		scrollView.delaysContentTouches = false
+//		scrollView.canCancelContentTouches = false
+//		scrollView.isExclusiveTouch = false
+//		scrollView.isUserInteractionEnabled = true
+//		scrollView.delaysContentTouches = false
 		
 		scrollView.clipsToBounds = true
 		
@@ -238,7 +239,7 @@ class TimelineCell: UITableViewCell {
 	}
 	
 	@objc func performSongSelect() {
-		onSongSelect?()
+		delegate?.didSelectAddButton(self)
 	}
 	
 	@objc func tappedTimelineBar(_ bar: UIButton) {
