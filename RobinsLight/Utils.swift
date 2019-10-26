@@ -13,9 +13,9 @@ import CryptoKit
 
 
 typealias BlankClosure = ()->()
-typealias MixError = String
-typealias ErrorReturn = (_ error: MixError?) -> ()
-typealias Response<T> = (T?, _ error: MixError?) -> ()
+typealias RobinError = String
+typealias ErrorReturn = (_ error: RobinError?) -> ()
+typealias Response<T> = (T?, _ error: RobinError?) -> ()
 
 extension Encodable {
 	var prettyJSONRepr: String {
@@ -149,4 +149,22 @@ extension Array {
         
         return chunkedArray
     }
+}
+
+extension TimeInterval {
+	var friendlyFormat: String? {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .full
+		formatter.allowedUnits = NSCalendar.Unit(rawValue: NSCalendar.Unit.hour.rawValue | NSCalendar.Unit.minute.rawValue | NSCalendar.Unit.second.rawValue)
+
+		let now = Date()
+		let pickedDate = now.addingTimeInterval(self)
+		return formatter.string(from: now, to: pickedDate)
+	}
+	
+	var clockStyle: String? {
+		let minutes = Int(floor(self/60))
+		let seconds = Int(floor(self)) % 60
+		return "\(minutes):\(seconds < 10 ? "0" : "")\(seconds)"
+	}
 }

@@ -15,25 +15,48 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="BH3-ME-u7I" kind="relationship" relationship="rootViewController" id="jZz-Gp-Pw9"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lZO-kn-3zG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-435" y="96"/>
+            <point key="canvasLocation" x="-461" y="96"/>
         </scene>
-        <!--View Controller-->
+        <!--Routine Manager Screen-->
         <scene sceneID="5ga-HQ-zI9">
             <objects>
-                <viewController id="BH3-ME-u7I" sceneMemberID="viewController">
+                <viewController id="BH3-ME-u7I" customClass="RoutineManagerScreen" customModule="RobinsLight" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aAV-NE-B3W">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="sBD-Pb-Zju"/>
                     </view>
+                    <navigationItem key="navigationItem" id="vAk-Sh-sET"/>
+                    <connections>
+                        <segue destination="d1v-qw-yh8" kind="show" identifier="2editor" id="HDg-3M-5ne"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kix-Gb-3K5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="332" y="96"/>
+        </scene>
+        <!--Routine Editor Screen-->
+        <scene sceneID="4XU-Wn-cHL">
+            <objects>
+                <viewController id="d1v-qw-yh8" customClass="RoutineEditorScreen" customModule="RobinsLight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zs6-er-twe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="NYi-xe-C8l"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ILB-5D-Yhv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NC6-Yy-631" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1133" y="96"/>
         </scene>
     </scenes>
 </document>

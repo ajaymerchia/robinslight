@@ -31,6 +31,10 @@ class RobinObjectCache<T: DataBlob> {
 		self.records[obj.id] = (obj, Date())
 		DataStack.store(object: obj, completion: completion)
 	}
+	func delete(id: String, completion: ErrorReturn?) {
+		self.records.removeValue(forKey: id)
+		DataStack.delete(type: T.self, id: id, completion: completion)
+	}
 	
 	func getSync(id: String) -> T? {
 		if let record = records[id] {
@@ -43,6 +47,8 @@ class RobinObjectCache<T: DataBlob> {
 		}
 		
 	}
+	
+	
 	
 	func get(id: String, completion: Response<T>?) {
 		if RobinCache.useCaches {

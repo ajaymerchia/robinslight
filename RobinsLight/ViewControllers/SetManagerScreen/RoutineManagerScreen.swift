@@ -1,5 +1,5 @@
 //
-//  SetManagerScreen.swift
+//  RoutineManagerScreen.swift
 //  RobinsLight
 //
 //  Created by Ajay Merchia on 10/26/19.
@@ -11,13 +11,13 @@
 import UIKit
 import ARMDevSuite
 
-class SetManagerScreen: UIViewController {
+class RoutineManagerScreen: RobinVC {
     
     // Data
+	static var allRoutines = [Routine]()
     
     // System
-    var alerts: AlertManager!
-    
+	var table: UITableView!
     // UI Components
     
     
@@ -25,9 +25,9 @@ class SetManagerScreen: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        getData()
-        setupManagers()
-        initUI()
+		initUI()
+		getData()
+        
     }
     
 }

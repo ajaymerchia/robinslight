@@ -46,7 +46,7 @@ class DataStack {
 		do {
 			let entityFolder = target(entity: type)
 			let entities = try FileManager.default.contentsOfDirectory(at: entityFolder, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
-			let childPaths = entities.map({$0.lastPathComponent})
+			let childPaths = entities.map({$0.deletingPathExtension().lastPathComponent})
 			completion?(childPaths, nil)
 		} catch {
 			completion?(nil, error.localizedDescription)
@@ -60,14 +60,20 @@ class DataStack {
 			let file = entityFolder.appendingPathComponent(T.genFileName(for: id))
 			let jsonData = try Data(contentsOf: file)
 			let obj = try? decoder.decode(T.self, from: jsonData)
-			completion?(obj, nil)
+			if let obj = obj {
+				completion?(obj, nil)
+			} else {
+				delete(type: type, id: id, completion: nil)
+			}
 		} catch {
+			// delete the corrupted file
+			delete(type: type, id: id, completion: nil)
 			completion?(nil, error.localizedDescription)
 		}
 
 	}
 	static func delete<T: DataBlob>(type: T.Type, id: String, completion: ErrorReturn?) {
-		let target = documentsURL.appendingPathComponent(T.dbRef, isDirectory: true).appendingPathComponent(id)
+		let target = documentsURL.appendingPathComponent(T.dbRef, isDirectory: true).appendingPathComponent(T.genFileName(for: id))
 		do {
 			try FileManager.default.removeItem(at: target)
 			completion?(nil)

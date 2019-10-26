@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,23 @@
 		B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED12364444A00D54AF1 /* DataStack.swift */; };
 		B71DCED42364447000D54AF1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED32364447000D54AF1 /* Utils.swift */; };
 		B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED5236444C000D54AF1 /* RobinsCache.swift */; };
-		B71DCED8236444FD00D54AF1 /* SetManagerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */; };
+		B71DCED8236444FD00D54AF1 /* RoutineManagerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */; };
+		B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A2236446DA00D3A9DF /* RobinVC.swift */; };
+		B78848A5236446F800D3A9DF /* RoutineManagerScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */; };
+		B78848A72364472E00D3A9DF /* RoutineManagerScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */; };
+		B78848A92364476800D3A9DF /* UIAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A82364476800D3A9DF /* UIAttributes.swift */; };
+		B78848AB236449AE00D3A9DF /* RoutineManagerScreen-table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848AA236449AE00D3A9DF /* RoutineManagerScreen-table.swift */; };
+		B78848AD236449EF00D3A9DF /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848AC236449EF00D3A9DF /* Routine.swift */; };
+		B78848AF23644AC700D3A9DF /* DesignDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848AE23644AC700D3A9DF /* DesignDelegate.swift */; };
+		B78848B323644C6200D3A9DF /* RoutineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848B223644C6200D3A9DF /* RoutineManager.swift */; };
+		B78848B72364573800D3A9DF /* RoutineEditorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848B62364573800D3A9DF /* RoutineEditorScreen.swift */; };
+		B78848BA236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848B9236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift */; };
+		B78848BC236457C000D3A9DF /* RoutineManagerScreen-sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848BB236457C000D3A9DF /* RoutineManagerScreen-sys.swift */; };
+		B78848BE2364597B00D3A9DF /* RoutineEditorScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848BD2364597B00D3A9DF /* RoutineEditorScreen-logic.swift */; };
+		B78848C023645A8400D3A9DF /* RoutineEditorScreen-table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848BF23645A8400D3A9DF /* RoutineEditorScreen-table.swift */; };
+		B78848C523645D4900D3A9DF /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C423645D4900D3A9DF /* Song.swift */; };
+		B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C723649D3700D3A9DF /* TimelineCell.swift */; };
+		B78848CA2364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */; };
 		F003907E695E218A2367D5FC /* Pods_RobinsLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +56,23 @@
 		B71DCED12364444A00D54AF1 /* DataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStack.swift; sourceTree = "<group>"; };
 		B71DCED32364447000D54AF1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B71DCED5236444C000D54AF1 /* RobinsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinsCache.swift; sourceTree = "<group>"; };
-		B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetManagerScreen.swift; sourceTree = "<group>"; };
+		B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManagerScreen.swift; sourceTree = "<group>"; };
+		B78848A2236446DA00D3A9DF /* RobinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinVC.swift; sourceTree = "<group>"; };
+		B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-initUI.swift"; sourceTree = "<group>"; };
+		B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-logic.swift"; sourceTree = "<group>"; };
+		B78848A82364476800D3A9DF /* UIAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAttributes.swift; sourceTree = "<group>"; };
+		B78848AA236449AE00D3A9DF /* RoutineManagerScreen-table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-table.swift"; sourceTree = "<group>"; };
+		B78848AC236449EF00D3A9DF /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		B78848AE23644AC700D3A9DF /* DesignDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignDelegate.swift; sourceTree = "<group>"; };
+		B78848B223644C6200D3A9DF /* RoutineManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineManager.swift; sourceTree = "<group>"; };
+		B78848B62364573800D3A9DF /* RoutineEditorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditorScreen.swift; sourceTree = "<group>"; };
+		B78848B9236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-initUI.swift"; sourceTree = "<group>"; };
+		B78848BB236457C000D3A9DF /* RoutineManagerScreen-sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-sys.swift"; sourceTree = "<group>"; };
+		B78848BD2364597B00D3A9DF /* RoutineEditorScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-logic.swift"; sourceTree = "<group>"; };
+		B78848BF23645A8400D3A9DF /* RoutineEditorScreen-table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-table.swift"; sourceTree = "<group>"; };
+		B78848C423645D4900D3A9DF /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		B78848C723649D3700D3A9DF /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-runtime.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +111,9 @@
 			children = (
 				B71DCECA23641A3700D54AF1 /* RobinsLight.entitlements */,
 				B71DCED32364447000D54AF1 /* Utils.swift */,
-				B71DCED7236444FD00D54AF1 /* SetManagerScreen.swift */,
+				B78848C323645D4000D3A9DF /* Models */,
+				B78848A82364476800D3A9DF /* UIAttributes.swift */,
+				B7D574FD23644618004188E0 /* ViewControllers */,
 				B71DCED02364444100D54AF1 /* Managers */,
 				B71DCECE236443BD00D54AF1 /* SysDelegates */,
 				B71DCECF236443DB00D54AF1 /* BluetoothExperiment */,
@@ -105,6 +139,7 @@
 			children = (
 				B71DCEB423640E0500D54AF1 /* AppDelegate.swift */,
 				B71DCEB623640E0500D54AF1 /* SceneDelegate.swift */,
+				B78848AE23644AC700D3A9DF /* DesignDelegate.swift */,
 			);
 			path = SysDelegates;
 			sourceTree = "<group>";
@@ -123,8 +158,61 @@
 			children = (
 				B71DCED12364444A00D54AF1 /* DataStack.swift */,
 				B71DCED5236444C000D54AF1 /* RobinsCache.swift */,
+				B78848B223644C6200D3A9DF /* RoutineManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		B78848B82364574000D3A9DF /* RoutineEditorScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B78848B62364573800D3A9DF /* RoutineEditorScreen.swift */,
+				B78848B9236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift */,
+				B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */,
+				B78848BD2364597B00D3A9DF /* RoutineEditorScreen-logic.swift */,
+				B78848BF23645A8400D3A9DF /* RoutineEditorScreen-table.swift */,
+				B78848C623645FA200D3A9DF /* SupportViews */,
+			);
+			path = RoutineEditorScreen;
+			sourceTree = "<group>";
+		};
+		B78848C323645D4000D3A9DF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B78848AC236449EF00D3A9DF /* Routine.swift */,
+				B78848C423645D4900D3A9DF /* Song.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B78848C623645FA200D3A9DF /* SupportViews */ = {
+			isa = PBXGroup;
+			children = (
+				B78848C723649D3700D3A9DF /* TimelineCell.swift */,
+			);
+			path = SupportViews;
+			sourceTree = "<group>";
+		};
+		B7D574FC23644612004188E0 /* SetManagerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */,
+				B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */,
+				B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */,
+				B78848AA236449AE00D3A9DF /* RoutineManagerScreen-table.swift */,
+				B78848BB236457C000D3A9DF /* RoutineManagerScreen-sys.swift */,
+			);
+			path = SetManagerScreen;
+			sourceTree = "<group>";
+		};
+		B7D574FD23644618004188E0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7D574FC23644612004188E0 /* SetManagerScreen */,
+				B78848A2236446DA00D3A9DF /* RobinVC.swift */,
+				B78848B82364574000D3A9DF /* RoutineEditorScreen */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		E46BF85AD45B0369A14627DC /* Pods */ = {
@@ -133,7 +221,6 @@
 				03892C8496FE1B80F9CF2191 /* Pods-RobinsLight.debug.xcconfig */,
 				3ED081D96AAE1739F2E39996 /* Pods-RobinsLight.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -252,14 +339,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B71DCED8236444FD00D54AF1 /* SetManagerScreen.swift in Sources */,
+				B78848A72364472E00D3A9DF /* RoutineManagerScreen-logic.swift in Sources */,
+				B78848A5236446F800D3A9DF /* RoutineManagerScreen-initUI.swift in Sources */,
+				B78848A92364476800D3A9DF /* UIAttributes.swift in Sources */,
+				B71DCED8236444FD00D54AF1 /* RoutineManagerScreen.swift in Sources */,
 				B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */,
+				B78848C023645A8400D3A9DF /* RoutineEditorScreen-table.swift in Sources */,
+				B78848B72364573800D3A9DF /* RoutineEditorScreen.swift in Sources */,
+				B78848BA236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift in Sources */,
+				B78848BC236457C000D3A9DF /* RoutineManagerScreen-sys.swift in Sources */,
+				B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */,
+				B78848C523645D4900D3A9DF /* Song.swift in Sources */,
 				B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */,
 				B71DCEB523640E0500D54AF1 /* AppDelegate.swift in Sources */,
+				B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */,
+				B78848CA2364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift in Sources */,
+				B78848AD236449EF00D3A9DF /* Routine.swift in Sources */,
 				B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */,
 				B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */,
+				B78848BE2364597B00D3A9DF /* RoutineEditorScreen-logic.swift in Sources */,
 				B71DCEB723640E0500D54AF1 /* SceneDelegate.swift in Sources */,
+				B78848AB236449AE00D3A9DF /* RoutineManagerScreen-table.swift in Sources */,
 				B71DCED42364447000D54AF1 /* Utils.swift in Sources */,
+				B78848AF23644AC700D3A9DF /* DesignDelegate.swift in Sources */,
+				B78848B323644C6200D3A9DF /* RoutineManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

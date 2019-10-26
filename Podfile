@@ -6,6 +6,10 @@ target 'RobinsLight' do
   use_frameworks!
 
   # Pods for RobinsLight
-	pod 'ARMDevSuite'
+	pod 'ARMDevSuite/Alerts'
+	pod 'ARMDevSuite/Layouts'
+	pod 'ARMDevSuite/Logic'
+	pod 'ARMDevSuite/ProgressHud'
+	pod 'ARMDevSuite/UISuite'
 
 end

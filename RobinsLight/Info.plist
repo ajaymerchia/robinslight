@@ -64,5 +64,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Load songs to match with the lights</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>Load songs to match with the lights</string>
 </dict>
 </plist>
