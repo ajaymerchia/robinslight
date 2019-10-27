@@ -46,7 +46,7 @@ class Event: DataBlob, TimelineObject, Comparable {
 		return self.timelineEnd - self.timelineStart
 	}
 	var timelineDescription: String {
-		"\(self.type.rawValue.capitalized) \(timelineDuration)"
+		"\(name) (\(self.type.rawValue.capitalized))"
 	}
 	
 	init(name: String, type: EventType, start: TimeInterval, end: TimeInterval) {
@@ -113,7 +113,8 @@ class Event: DataBlob, TimelineObject, Comparable {
 			
 			
 		} else if self.type == .fade {
-
+			let val = try values.decode([Double].self, forKey: .colors)
+			self.colors = val.map({UIColor(hexStr: String(Int($0), radix: 16))})
 		} else if self.type == .hold {
 			let val = try values.decode(Int.self, forKey: .color)
 			print("stored a color")

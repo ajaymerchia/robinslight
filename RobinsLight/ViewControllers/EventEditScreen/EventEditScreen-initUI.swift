@@ -39,7 +39,10 @@ extension EventEditScreen {
 		format(btn: self.end, label: "End", val: self.proposedEvent.timelineEnd)
 		format(btn: durationButton, label: "Duration", val: self.proposedEvent.timelineDuration)
 		
+		self.table.isEditing = (self.proposedEvent.type == .fade || self.proposedEvent.type == .strobe)
 		self.table.reloadData()
+		table.allowsSelectionDuringEditing = true
+		
     }
 
     // UI Initialization Helpers
@@ -101,6 +104,7 @@ extension EventEditScreen {
 				self.proposedEvent.colors = nil
 				self.proposedEvent.frequency = nil
  				self.populateViews()
+				
 				
 			}
 		}

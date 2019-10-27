@@ -16,15 +16,19 @@ extension EventEditScreen {
     
     }
 	@objc func storeEvent() {
+		self.proposedEvent.name = self.titleTf.text!
+		
 		let dId = self.routine.deviceIDs[self.deviceNo]
 		if self.routine.deviceTracks[dId]!.contains(self.proposedEvent) {
 			// replace -- I should just mutating a record in place, store, dismiss
 			RobinCache.records(for: Routine.self).store(self.routine) { (_) in
+				self.onUpdate?()
 				self.dismiss(animated: true, completion: nil)
 			}
 		} else {
 			self.routine.deviceTracks[dId]!.append(self.proposedEvent)
 			RobinCache.records(for: Routine.self).store(self.routine) { (_) in
+				self.onUpdate?()
 				self.dismiss(animated: true, completion: nil)
 			}
 		}

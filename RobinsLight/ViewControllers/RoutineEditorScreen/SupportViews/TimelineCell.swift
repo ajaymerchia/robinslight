@@ -235,7 +235,7 @@ class TimelineCell: UITableViewCell {
 			
 			songBar.setBackgroundColor(color: color.withAlphaComponent(0.4), forState: .normal)
 			songBar.setBackgroundColor(color: color.withAlphaComponent(0.6), forState: .highlighted)
-			songLabel.textColor = color
+			songLabel.textColor = color.modified(withAdditionalHue: 0, additionalSaturation: 0, additionalBrightness: -0.3)
 			
 			songBar.layer.cornerRadius = 10
 			songBar.clipsToBounds = true

@@ -38,6 +38,8 @@ class EventEditScreen: RobinVC {
 	
 	var colorController: DefaultColorPickerViewController?
 	
+	var onUpdate: BlankClosure?
+	var tmpIdx: Int?
 	
     override func viewDidLoad() {
         super.viewDidLoad()

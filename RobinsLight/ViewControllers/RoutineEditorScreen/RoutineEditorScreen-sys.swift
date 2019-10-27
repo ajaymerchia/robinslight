@@ -40,14 +40,21 @@ extension RoutineEditorScreen: AddDeviceScreenDelegate {
 			editEvent.routine = self.routine
 			if let sender = sender as? Int {
 				editEvent.deviceNo = sender
+				editEvent.onUpdate = {
+					self.table.reloadRows(at: [IndexPath(row: editEvent.deviceNo, section: 1)], with: .automatic)
+				}
 			}
 			if let sender = sender as? (Int, Int) {
 				editEvent.deviceNo = sender.0
 				let dId = self.routine.deviceIDs[sender.0]
 			
 				editEvent.proposedEvent = self.routine.deviceTracks[dId]?[sender.1]
+				editEvent.onUpdate = {
+					self.table.reloadRows(at: [IndexPath(row: editEvent.deviceNo, section: 1)], with: .automatic)
+				}
 			}
 			editEvent.trackHeadLocation = self.getTargetPosition()
+			
 		}
     }
 
