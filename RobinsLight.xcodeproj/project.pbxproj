@@ -36,6 +36,16 @@
 		B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C723649D3700D3A9DF /* TimelineCell.swift */; };
 		B78848CA2364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */; };
 		B78848CC2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848CB2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift */; };
+		B78848CE236546CC00D3A9DF /* AddDeviceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848CD236546CC00D3A9DF /* AddDeviceScreen.swift */; };
+		B78848D12365470700D3A9DF /* AddDeviceScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848D02365470700D3A9DF /* AddDeviceScreen-initUI.swift */; };
+		B78848D32365471A00D3A9DF /* AddDeviceScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848D22365471A00D3A9DF /* AddDeviceScreen-logic.swift */; };
+		B78848D5236547A200D3A9DF /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848D4236547A200D3A9DF /* Devices.swift */; };
+		B78848D723654BB600D3A9DF /* AddDeviceScreen-table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848D623654BB600D3A9DF /* AddDeviceScreen-table.swift */; };
+		B78848D92365534800D3A9DF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848D82365534800D3A9DF /* Event.swift */; };
+		B78848DB2365703000D3A9DF /* EventEditScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848DA2365703000D3A9DF /* EventEditScreen.swift */; };
+		B78848DE23657E5800D3A9DF /* EventEditScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848DD23657E5800D3A9DF /* EventEditScreen-initUI.swift */; };
+		B78848E023657E9000D3A9DF /* EventEditScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848DF23657E9000D3A9DF /* EventEditScreen-logic.swift */; };
+		B78848E22365A21E00D3A9DF /* EventEditScreen-table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848E12365A21E00D3A9DF /* EventEditScreen-table.swift */; };
 		F003907E695E218A2367D5FC /* Pods_RobinsLight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44D0D61EE7E52DCE3A07C211 /* Pods_RobinsLight.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +85,16 @@
 		B78848C723649D3700D3A9DF /* TimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
 		B78848C92364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-runtime.swift"; sourceTree = "<group>"; };
 		B78848CB2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineEditorScreen-sys.swift"; sourceTree = "<group>"; };
+		B78848CD236546CC00D3A9DF /* AddDeviceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceScreen.swift; sourceTree = "<group>"; };
+		B78848D02365470700D3A9DF /* AddDeviceScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddDeviceScreen-initUI.swift"; sourceTree = "<group>"; };
+		B78848D22365471A00D3A9DF /* AddDeviceScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddDeviceScreen-logic.swift"; sourceTree = "<group>"; };
+		B78848D4236547A200D3A9DF /* Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
+		B78848D623654BB600D3A9DF /* AddDeviceScreen-table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddDeviceScreen-table.swift"; sourceTree = "<group>"; };
+		B78848D82365534800D3A9DF /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B78848DA2365703000D3A9DF /* EventEditScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEditScreen.swift; sourceTree = "<group>"; };
+		B78848DD23657E5800D3A9DF /* EventEditScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventEditScreen-initUI.swift"; sourceTree = "<group>"; };
+		B78848DF23657E9000D3A9DF /* EventEditScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventEditScreen-logic.swift"; sourceTree = "<group>"; };
+		B78848E12365A21E00D3A9DF /* EventEditScreen-table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventEditScreen-table.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +204,8 @@
 			children = (
 				B78848AC236449EF00D3A9DF /* Routine.swift */,
 				B78848C423645D4900D3A9DF /* Song.swift */,
+				B78848D82365534800D3A9DF /* Event.swift */,
+				B78848D4236547A200D3A9DF /* Devices.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -194,6 +216,28 @@
 				B78848C723649D3700D3A9DF /* TimelineCell.swift */,
 			);
 			path = SupportViews;
+			sourceTree = "<group>";
+		};
+		B78848CF236546D500D3A9DF /* AddDeviceScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B78848CD236546CC00D3A9DF /* AddDeviceScreen.swift */,
+				B78848D02365470700D3A9DF /* AddDeviceScreen-initUI.swift */,
+				B78848D22365471A00D3A9DF /* AddDeviceScreen-logic.swift */,
+				B78848D623654BB600D3A9DF /* AddDeviceScreen-table.swift */,
+			);
+			path = AddDeviceScreen;
+			sourceTree = "<group>";
+		};
+		B78848DC23657E4700D3A9DF /* EventEditScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B78848DA2365703000D3A9DF /* EventEditScreen.swift */,
+				B78848DD23657E5800D3A9DF /* EventEditScreen-initUI.swift */,
+				B78848DF23657E9000D3A9DF /* EventEditScreen-logic.swift */,
+				B78848E12365A21E00D3A9DF /* EventEditScreen-table.swift */,
+			);
+			path = EventEditScreen;
 			sourceTree = "<group>";
 		};
 		B7D574FC23644612004188E0 /* SetManagerScreen */ = {
@@ -211,8 +255,10 @@
 		B7D574FD23644618004188E0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B7D574FC23644612004188E0 /* SetManagerScreen */,
 				B78848A2236446DA00D3A9DF /* RobinVC.swift */,
+				B78848DC23657E4700D3A9DF /* EventEditScreen */,
+				B78848CF236546D500D3A9DF /* AddDeviceScreen */,
+				B7D574FC23644612004188E0 /* SetManagerScreen */,
 				B78848B82364574000D3A9DF /* RoutineEditorScreen */,
 			);
 			path = ViewControllers;
@@ -349,20 +395,30 @@
 				B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */,
 				B78848C023645A8400D3A9DF /* RoutineEditorScreen-table.swift in Sources */,
 				B78848B72364573800D3A9DF /* RoutineEditorScreen.swift in Sources */,
+				B78848E023657E9000D3A9DF /* EventEditScreen-logic.swift in Sources */,
+				B78848DE23657E5800D3A9DF /* EventEditScreen-initUI.swift in Sources */,
 				B78848BA236457AA00D3A9DF /* RoutineEditorScreen-initUI.swift in Sources */,
 				B78848BC236457C000D3A9DF /* RoutineManagerScreen-sys.swift in Sources */,
 				B78848CC2364BF1D00D3A9DF /* RoutineEditorScreen-sys.swift in Sources */,
 				B78848C823649D3800D3A9DF /* TimelineCell.swift in Sources */,
 				B78848C523645D4900D3A9DF /* Song.swift in Sources */,
 				B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */,
+				B78848D92365534800D3A9DF /* Event.swift in Sources */,
 				B71DCEB523640E0500D54AF1 /* AppDelegate.swift in Sources */,
 				B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */,
 				B78848CA2364B26D00D3A9DF /* RoutineEditorScreen-runtime.swift in Sources */,
 				B78848AD236449EF00D3A9DF /* Routine.swift in Sources */,
 				B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */,
+				B78848D32365471A00D3A9DF /* AddDeviceScreen-logic.swift in Sources */,
+				B78848D5236547A200D3A9DF /* Devices.swift in Sources */,
 				B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */,
+				B78848CE236546CC00D3A9DF /* AddDeviceScreen.swift in Sources */,
+				B78848D723654BB600D3A9DF /* AddDeviceScreen-table.swift in Sources */,
+				B78848DB2365703000D3A9DF /* EventEditScreen.swift in Sources */,
 				B78848BE2364597B00D3A9DF /* RoutineEditorScreen-logic.swift in Sources */,
+				B78848E22365A21E00D3A9DF /* EventEditScreen-table.swift in Sources */,
 				B71DCEB723640E0500D54AF1 /* SceneDelegate.swift in Sources */,
+				B78848D12365470700D3A9DF /* AddDeviceScreen-initUI.swift in Sources */,
 				B78848AB236449AE00D3A9DF /* RoutineManagerScreen-table.swift in Sources */,
 				B71DCED42364447000D54AF1 /* Utils.swift in Sources */,
 				B78848AF23644AC700D3A9DF /* DesignDelegate.swift in Sources */,

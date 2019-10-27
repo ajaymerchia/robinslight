@@ -54,7 +54,7 @@ extension RoutineEditorScreen {
 		table.dataSource = self
 		table.delegate = self
 //		table.allowsSelection = false
-		table.contentInset = UIEdgeInsets(top: 2 * .padding, left: 0, bottom: 0, right: 0)
+		table.contentInset = UIEdgeInsets(top: 2.5 * .padding, left: 0, bottom: 0, right: 0)
 		table.delaysContentTouches = false
 		table.register(TimelineCell.self, forCellReuseIdentifier: TimelineCell.kID)
 		
@@ -65,7 +65,7 @@ extension RoutineEditorScreen {
 		
 	}
 	func refreshTrackCell() {
-		self.persistentTrackCell.initFrom(timelineComponents: self.routine.songs)
+		self.persistentTrackCell.initFrom(timelineComponents: self.routine.songs, totalLength: self.scrollViewWidth)
 		self.persistentTrackCell.trackTitle = "Music Track"
 		self.persistentMusicBar = self.persistentTrackCell.scrollView
 	}
@@ -114,6 +114,15 @@ extension RoutineEditorScreen {
 		playHeadMarker.topAnchor.constraint(equalTo: playHead.bottomAnchor).isActive = true
 		playHeadMarker.widthAnchor.constraint(equalToConstant: 2).isActive = true
 		playHeadMarker.backgroundColor = .robinPrimary
+		
+		self.trackIndicator = UILabel(); view.addSubview(trackIndicator)
+			self.trackIndicator.translatesAutoresizingMaskIntoConstraints = false
+			self.trackIndicator.topAnchor.constraint(equalTo: playHead.bottomAnchor, constant: 0).isActive = true
+			self.trackIndicator.leadingAnchor.constraint(equalTo: playHeadMarker.trailingAnchor, constant: .mPadding/2).isActive = true
+		self.trackIndicator.textColor = .robinPrimary
+		self.trackIndicator.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+		self.trackIndicator.text = "0:00"
+			
 		
 	}
 	

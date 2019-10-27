@@ -11,5 +11,10 @@ target 'RobinsLight' do
 	pod 'ARMDevSuite/Logic'
 	pod 'ARMDevSuite/ProgressHud'
 	pod 'ARMDevSuite/UISuite'
+	pod 'ARMDevSuite/TextField'
+	pod 'IQKeyboardManager', :inhibit_warnings => true
+
+	pod 'FlexColorPicker'
+
 
 end

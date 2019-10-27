@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		Design.configDesign()
 		
-		let _ = UIColor.robinPrimary.decimalRadix
-		
+		IQKeyboardManager.shared().isEnabled = true
 		
 		return true
 	}

@@ -7,8 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 class Song: DataBlob, TimelineObject {
+	func getTimelinePreferredBarColor() -> UIColor? {
+		return nil
+	}
+	
+	
+	
 	var timelineDuration: TimeInterval {
 		return self.duration
 	}

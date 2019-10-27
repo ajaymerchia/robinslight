@@ -102,6 +102,9 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		
 		
 		self.playerTimer = Timer.scheduledTimer(withTimeInterval: animationPrecision, repeats: true, block: { (_) in
+			
+			self.trackIndicator.text = self.getTargetPosition().clockStyle
+			
 			let movement = CGFloat(animationPrecision) * RoutineEditorScreen.secondsToPixels
 			if self.playHeadX.constant < self.view.frame.width/2 - .padding {
 				// until the playhead gets to the halfway mark, move the playhead
@@ -141,14 +144,25 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		}
 	}
 	
+	func getTargetPosition() -> TimeInterval {
+		let scrollerOffset = self.persistentMusicBar.contentOffset.x
+		let totalPixelOffset = self.playHeadX.constant + scrollerOffset
+		
+		let targetPosition = max(0, TimeInterval(totalPixelOffset/RoutineEditorScreen.secondsToPixels))
+		return targetPosition
+	}
+	
 	@objc func processPlayheadDrag(_ sender: UIPanGestureRecognizer) {
 		if isPlaying {
 			return
 		}
-		
-		let distance = sender.translation(in: self.view).x + 9.6
+		let distance = sender.translation(in: self.view).x
 		let position = sender.location(in: self.playTrack).x
-		self.playHeadX.constant = position
+		self.playHeadX.constant = max(0, position)
+
+		
+		self.trackIndicator.text = getTargetPosition().clockStyle
+		
 				
 		let threshold: CGFloat = 0.85
 		if position > self.playTrack.frame.width * threshold && distance > 0 {
@@ -156,7 +170,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 			if self.pendingOffset == 0 {
 				self.pendingOffset = distance/RoutineEditorScreen.secondsToPixels
 			}
-			self.pendingOffset += RoutineEditorScreen.secondsMajorMarker
+			self.pendingOffset += RoutineEditorScreen.secondsMajorMarker/2
 			
 			if TimeInterval(self.pendingOffset) + self.globalTrackOffset > self.timeBreaks.last! {
 				self.pendingOffset = CGFloat(self.timeBreaks.last! - self.globalTrackOffset)
@@ -170,7 +184,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 			if self.pendingOffset == 0 {
 				self.pendingOffset = -distance/RoutineEditorScreen.secondsToPixels
 			}
-			self.pendingOffset -= RoutineEditorScreen.secondsMajorMarker
+			self.pendingOffset -= RoutineEditorScreen.secondsMajorMarker/2
 			
 			if TimeInterval(self.pendingOffset) + self.globalTrackOffset < 0 {
 				self.pendingOffset = -CGFloat(self.globalTrackOffset)
@@ -186,12 +200,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		
 		if sender.state == UIGestureRecognizer.State.ended {
 			// calculate unfuck-up-able targetOffset
-			let scrollerOffset = self.persistentMusicBar.contentOffset.x
-			let playHeadOffset = position
-			
-			let totalPixelOffset = position + scrollerOffset
-			
-			let targetPosition = TimeInterval(totalPixelOffset/RoutineEditorScreen.secondsToPixels)
+			let targetPosition = getTargetPosition()
 
 			var selectedIdx: Int!
 			for newSongIdx in (0..<self.timeBreaks.count - 1) {

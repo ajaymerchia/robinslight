@@ -53,10 +53,44 @@
                         <viewLayoutGuide key="safeArea" id="NYi-xe-C8l"/>
                     </view>
                     <navigationItem key="navigationItem" id="ILB-5D-Yhv"/>
+                    <connections>
+                        <segue destination="b4v-AN-QE0" kind="presentation" identifier="editor2addDevice" id="0yx-mL-FKU"/>
+                        <segue destination="vmb-wv-qSI" kind="presentation" identifier="2eventEdit" id="eWG-WN-EiV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NC6-Yy-631" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1133" y="96"/>
+        </scene>
+        <!--Event Edit Screen-->
+        <scene sceneID="aq0-SC-SsS">
+            <objects>
+                <viewController id="vmb-wv-qSI" customClass="EventEditScreen" customModule="RobinsLight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZeT-SC-RPh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="SGz-ea-uYR"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ov1-QA-2Xx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1893" y="383"/>
+        </scene>
+        <!--Add Device Screen-->
+        <scene sceneID="O02-so-IGi">
+            <objects>
+                <viewController id="b4v-AN-QE0" customClass="AddDeviceScreen" customModule="RobinsLight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zv9-Yu-FQG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Azi-lW-uX4"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j14-I3-J9j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1893" y="-335"/>
         </scene>
     </scenes>
 </document>

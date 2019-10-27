@@ -167,4 +167,17 @@ extension TimeInterval {
 		let seconds = Int(floor(self)) % 60
 		return "\(minutes):\(seconds < 10 ? "0" : "")\(seconds)"
 	}
+	var clockStyleMilli: String? {
+		let minutes = Int(floor(self/60))
+		let seconds = self.remainder(dividingBy: 60)
+		
+		let nbrfrmt = NumberFormatter()
+		nbrfrmt.maximumIntegerDigits = 2
+		nbrfrmt.minimumIntegerDigits = 2
+		nbrfrmt.maximumFractionDigits = 3
+		nbrfrmt.minimumFractionDigits = 3
+		
+		
+		return "\(minutes):\(nbrfrmt.string(from: NSNumber(value: seconds))!)"
+	}
 }

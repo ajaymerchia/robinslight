@@ -13,11 +13,17 @@ import ARMDevSuite
 import MediaPlayer
 
 extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPickerDelegate {
-    func getData() {
     
-    }
+	func addEvent(in track: Int) {
+		self.performSegue(withIdentifier: "2eventEdit", sender: track)
+	}
+	
+	
+	
+	
+	
 	@objc func addNewAsset() {
-		self.alerts.displayAlert(titled: .err, withDetail: "We haven't implemented live asset connectivity yet.", completion: nil)
+		self.performSegue(withIdentifier: "editor2addDevice", sender: nil)
 	}
 	
 	func editSongPosition(idx: Int) {

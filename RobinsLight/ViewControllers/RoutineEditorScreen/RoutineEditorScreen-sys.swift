@@ -11,7 +11,16 @@ import Foundation
 import UIKit
 import ARMDevSuite
 
-extension RoutineEditorScreen {
+extension RoutineEditorScreen: AddDeviceScreenDelegate {
+	func addDeviceScreen(_ addDeviceScreen: AddDeviceScreen, didSend device: Device) {
+		self.routine.deviceIDs.append(device.id)
+		self.routine.deviceTracks[device.id] = []
+		
+		RobinCache.records(for: Routine.self).store(self.routine) { (_) in
+			self.table.reloadSections(IndexSet(integer: 1), with: .fade)
+		}
+	}
+	
     override func viewWillAppear(_ animated: Bool) {
 
     }
@@ -25,10 +34,24 @@ extension RoutineEditorScreen {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+		if let addDevice = segue.destination as? AddDeviceScreen {
+			addDevice.delegate = self
+		} else if let editEvent = segue.destination as? EventEditScreen {
+			editEvent.routine = self.routine
+			if let sender = sender as? Int {
+				editEvent.deviceNo = sender
+			}
+			if let sender = sender as? (Int, Int) {
+				editEvent.deviceNo = sender.0
+				let dId = self.routine.deviceIDs[sender.0]
+			
+				editEvent.proposedEvent = self.routine.deviceTracks[dId]?[sender.1]
+			}
+			editEvent.trackHeadLocation = self.getTargetPosition()
+		}
     }
 
     // Segue Out Functions
-
+	
 
 }

@@ -17,6 +17,8 @@ class Routine: DataBlob {
 	var title: String
 	
 	var songs: [Song] = []
+	var deviceIDs: [String] = []
+	var deviceTracks: [String: [Event]] = [:]
 	
 	init(title: String) {
 		self.title = title

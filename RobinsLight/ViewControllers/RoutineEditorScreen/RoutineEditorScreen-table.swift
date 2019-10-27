@@ -11,16 +11,51 @@ import Foundation
 import UIKit
 import ARMDevSuite
 
-extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, TimelineCellDelegate {
+extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, TimelineCellDelegate, UIScrollViewDelegate {
+	func didSelectDeleteButton(_ cell: TimelineCell) {
+		let deviceID = self.routine.deviceIDs[cell.editorIdx]
+		
+		RobinCache.records(for: Device.self).get(id: deviceID) { (d, err) in
+			guard let d = d, err == nil else {
+				self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+				return
+			}
+			
+			let vc = UIAlertController(title: "Are you sure you want to remove \(d.id) \(d.commonName == nil ? "" : "(\(d.commonName!))")", message: "You will lose any events tuned for this device as well.", preferredStyle: .alert)
+			
+			vc.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
+				// delete
+				self.routine.deviceTracks.removeValue(forKey: deviceID)
+				self.routine.deviceIDs.remove(at: cell.editorIdx)
+				
+				self.table.deleteRows(at: [IndexPath(row: cell.editorIdx, section: 1)], with: .automatic)
+				
+				RobinCache.records(for: Routine.self).store(self.routine, completion: nil)
+				
+			}))
+			vc.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))
+			
+			self.present(vc, animated: true, completion: nil)
+			
+			
+		}
+		
+		
+	}
+	
 	func didSelectTimelineBar(_ cell: TimelineCell, at idx: Int) {
 		if cell.editorIdx == -1 {
 			self.editSongPosition(idx: idx)
+		} else {
+			self.performSegue(withIdentifier: "2eventEdit", sender: (cell.editorIdx, idx))
 		}
 	}
 	
 	func didSelectAddButton(_ cell: TimelineCell) {
 		if cell.editorIdx == -1 {
 			self.requestNewSong()
+		} else {
+			self.addEvent(in: cell.editorIdx)
 		}
 	}
 	
@@ -48,7 +83,7 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 	
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 1 : 2
+		return section == 0 ? 1 : self.routine.deviceIDs.count
 	}
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return section == 0 ? 0 : 40
@@ -60,10 +95,36 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if indexPath.section == 0 {
+			self.persistentTrackCell.scrollView?.delegate = self
 			return self.persistentTrackCell
 		} else {
-			return UITableViewCell()
+			let id = self.routine.deviceIDs[indexPath.row]
+			let events = self.routine.deviceTracks[id] ?? []
+		
+			let cell = tableView.dequeueReusableCell(withIdentifier: TimelineCell.kID) as! TimelineCell
+			cell.awakeFromNib()
+			cell.initFrom(timelineComponents: events, isDeviceTrack: true, totalLength: self.scrollViewWidth)
+			cell.editorIdx = indexPath.row
+			cell.delegate = self
+			cell.trackTitle = id
+			cell.scrollView?.delegate = self
+			
+			RobinCache.records(for: Device.self).get(id: id) { (d, _) in
+				 cell.additionalInfo = d?.commonName
+				
+			}
+			
+			return cell
 		}
+	}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		if scrollView != self.table {
+			scrollers.forEach { (sv) in
+				sv.contentOffset = scrollView.contentOffset
+			}
+		}
+		
 	}
 	
 

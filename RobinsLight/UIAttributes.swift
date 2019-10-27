@@ -48,8 +48,18 @@ extension UIColor {
 		return composite
 	}
 
+	var hexString: String? {
+		if let decRad = self.decimalRadix {
+			return String(Int(decRad), radix: 16)
+		}
+		return nil
+	}
 
-	
+	var hsba:(h: CGFloat, s: CGFloat,b: CGFloat,a: CGFloat) {
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return (h: h, s: s, b: b, a: a)
+    }
 	
 	// Theme
 	/// F74762

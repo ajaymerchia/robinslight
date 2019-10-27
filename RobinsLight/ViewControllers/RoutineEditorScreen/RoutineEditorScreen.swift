@@ -47,6 +47,9 @@ class RoutineEditorScreen: RobinVC {
 		}
 		return breaks
 	}
+	var scrollViewWidth: CGFloat {
+		return RoutineEditorScreen.secondsToPixels * self.routine.songs.map({CGFloat($0.timelineDuration)}).reduce(0, +)
+	}
 	var currSongIdx: Int?
 	var globalTrackOffset: TimeInterval {
 		guard let c = self.currSongIdx else { return 0 }
@@ -61,6 +64,7 @@ class RoutineEditorScreen: RobinVC {
 	var play: UIBarButtonItem!
 	var pause: UIBarButtonItem!
 	var table: UITableView!
+	var trackIndicator: UILabel!
 	var playTrack: UIView!
 	var playHead: UIView!
 		var playHeadX: NSLayoutConstraint!

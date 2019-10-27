@@ -11,11 +11,13 @@ import UIKit
 protocol TimelineObject {
 	var timelineDuration: TimeInterval { get }
 	var timelineDescription: String { get }
+	func getTimelinePreferredBarColor() -> UIColor?
 }
 
 protocol TimelineCellDelegate {
 	func didSelectTimelineBar(_ cell: TimelineCell, at idx: Int)
 	func didSelectAddButton(_ cell: TimelineCell)
+	func didSelectDeleteButton(_ cell: TimelineCell)
 }
 
 class TimelineCell: UITableViewCell {
@@ -34,6 +36,18 @@ class TimelineCell: UITableViewCell {
 			}
 		}
 	}
+	var additionalInfo: String! {
+		didSet {
+			if trackTitleView != nil {
+				if self.additionalInfo != "" {
+					additionalInfoLabel.text = self.additionalInfo
+					additionalInfoLabel.alpha = 1
+				} else {
+					additionalInfoLabel.alpha = 0
+				}
+			}
+		}
+	}
 	
 	var timelineEvents: [TimelineObject]!
 	
@@ -41,8 +55,13 @@ class TimelineCell: UITableViewCell {
 	var addButton: UIButton!
 	var scrollView: UIScrollView?
 	var trackTitleView: UILabel!
+	var additionalInfoLabel: UILabel!
 	
 	var delegate: TimelineCellDelegate?
+	
+	var isDeviceTrack: Bool = true
+	
+	var totalLength: CGFloat!
 	
 	
     override func awakeFromNib() {
@@ -50,16 +69,46 @@ class TimelineCell: UITableViewCell {
         // Initialization code
 		
     }
-	func initFrom(timelineComponents: [TimelineObject]) {
+	func initFrom(timelineComponents: [TimelineObject], isDeviceTrack: Bool = false, totalLength: CGFloat) {
 		self.timelineEvents = timelineComponents
+		self.isDeviceTrack = isDeviceTrack
+		self.totalLength = totalLength
 		self.contentView.clearContents()
 
-		if timelineComponents.count > 0 {
-			buildEventViewer()
-		} else {
+		if timelineComponents.count == 0 && !isDeviceTrack {
 			buildEventAdder()
+		} else {
+			buildEventViewer()
 		}
 	}
+	
+	func addTicks() {
+		guard let scrollView = self.scrollView else { return }
+
+		for majorTick in stride(from: RoutineEditorScreen.secondsMajorMarker, to: self.totalLength, by: RoutineEditorScreen.secondsMajorMarker) {
+			let majorTickPix = majorTick * RoutineEditorScreen.secondsToPixels
+			
+			let lineHeight: CGFloat = 10
+			let line = UIView(); scrollView.addSubview(line)
+			line.translatesAutoresizingMaskIntoConstraints = false
+			line.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			line.heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
+			line.widthAnchor.constraint(equalToConstant: 2).isActive = true
+			line.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: majorTickPix).isActive = true
+			
+			line.backgroundColor = .robinBlack
+
+			let timeLabel = UILabel(); scrollView.addSubview(timeLabel)
+			timeLabel.translatesAutoresizingMaskIntoConstraints = false
+			timeLabel.bottomAnchor.constraint(equalTo: line.topAnchor, constant: -2).isActive = true
+			timeLabel.centerXAnchor.constraint(equalTo: line.centerXAnchor).isActive = true
+			timeLabel.text = TimeInterval(majorTick).clockStyle
+			timeLabel.textColor = .robinBlack
+			timeLabel.font = UIFont.systemFont(ofSize: 10, weight: .light)
+			
+		}
+	}
+	
 	func buildEventViewer() {
 		self.scrollView = UIScrollView();
 		guard let scrollView = self.scrollView else { return }
@@ -68,6 +117,12 @@ class TimelineCell: UITableViewCell {
 		scrollView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: .padding).isActive = true
 		scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -.mPadding).isActive = true
 		scrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+		
+		scrollView.layoutSubviews()
+		scrollView.contentSize = CGSize(width: self.totalLength, height: scrollView.frame.height)
+		scrollView.showsHorizontalScrollIndicator = false
+
+		scrollView.clipsToBounds = true
 		
 		func rowHeader() {
 			trackTitleView = UILabel(); contentView.addSubview(trackTitleView)
@@ -88,7 +143,11 @@ class TimelineCell: UITableViewCell {
 			trackTitleView.clipsToBounds = true
 			trackTitleView.textAlignment = .center
 			trackTitleView.alpha = 0
+			trackTitleView.adjustsFontSizeToFitWidth = true
 
+			
+			
+			
 			let buttonSize: CGFloat = headerHeight
 			let adder = UIButton(); contentView.addSubview(adder)
 				adder.translatesAutoresizingMaskIntoConstraints = false
@@ -100,16 +159,40 @@ class TimelineCell: UITableViewCell {
 			adder.setBackgroundImage(UIImage(systemName: "plus.circle.fill")?.withTintColor(.systemGreen).withRenderingMode(.alwaysOriginal), for: .normal)
 			adder.imageView?.tintColor = .systemGreen
 			adder.tintColor = .systemGreen
-			adder.addTarget(self, action: #selector(performSongSelect), for: .touchUpInside)
+			adder.addTarget(self, action: #selector(performAddAction), for: .touchUpInside)
 			
 			adder.contentMode = .scaleAspectFill
+			
+			if self.isDeviceTrack {
+				let deleter = UIButton(); contentView.addSubview(deleter)
+					deleter.translatesAutoresizingMaskIntoConstraints = false
+					deleter.trailingAnchor.constraint(equalTo: adder.leadingAnchor, constant: -.mPadding).isActive = true
+					deleter.centerYAnchor.constraint(equalTo: adder.centerYAnchor).isActive = true
+					deleter.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
+					deleter.heightAnchor.constraint(equalTo: deleter.widthAnchor).isActive = true
+				
+				deleter.setBackgroundImage(UIImage(systemName: "x.circle.fill")?.withTintColor(.robinRed).withRenderingMode(.alwaysOriginal), for: .normal)
+				deleter.imageView?.tintColor = .robinRed
+				deleter.tintColor = .robinRed
+				deleter.addTarget(self, action: #selector(performDeleteAction), for: .touchUpInside)
+				
+				deleter.contentMode = .scaleAspectFill
+				
+				additionalInfoLabel = UILabel(); contentView.addSubview(additionalInfoLabel)
+					additionalInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+					additionalInfoLabel.leadingAnchor.constraint(equalTo: trackTitleView.trailingAnchor, constant: .mPadding).isActive = true
+					additionalInfoLabel.centerYAnchor.constraint(equalTo: trackTitleView.centerYAnchor).isActive = true
+					additionalInfoLabel.trailingAnchor.constraint(equalTo: deleter.leadingAnchor, constant: -.mPadding).isActive = true
+				
+				additionalInfoLabel.textColor = UIColor.robinBlack
+				additionalInfoLabel.alpha = 0
+				additionalInfoLabel.adjustsFontSizeToFitWidth = true
+			}
 				
 		}
 		rowHeader()
 		
-		
-		
-		
+		addTicks()
 		
 		var prevLeftAnchor = scrollView.leadingAnchor
 		var firstAnchor: NSLayoutXAxisAnchor!
@@ -148,7 +231,7 @@ class TimelineCell: UITableViewCell {
 			
 			prevLeftAnchor = songBar.trailingAnchor
 			
-			let color = UIColor.themeColors[eventIdx % UIColor.themeColors.count]
+			let color = event.getTimelinePreferredBarColor() ?? UIColor.themeColors[eventIdx % UIColor.themeColors.count]
 			
 			songBar.setBackgroundColor(color: color.withAlphaComponent(0.4), forState: .normal)
 			songBar.setBackgroundColor(color: color.withAlphaComponent(0.6), forState: .highlighted)
@@ -167,40 +250,10 @@ class TimelineCell: UITableViewCell {
 			
 		}
 		
-		scrollView.layoutSubviews()
-		scrollView.contentSize = CGSize(width: totalTrackPixels, height: scrollView.frame.height)
-		scrollView.showsHorizontalScrollIndicator = false
 		
-//		scrollView.canCancelContentTouches = false
-//		scrollView.isExclusiveTouch = false
-//		scrollView.isUserInteractionEnabled = true
-//		scrollView.delaysContentTouches = false
-		
-		scrollView.clipsToBounds = true
 		
 	
-		for majorTick in stride(from: RoutineEditorScreen.secondsMajorMarker, to: totalTrackPixels, by: RoutineEditorScreen.secondsMajorMarker) {
-			let majorTickPix = majorTick * RoutineEditorScreen.secondsToPixels
-			
-			let lineHeight: CGFloat = 10
-			let line = UIView(); scrollView.addSubview(line)
-			line.translatesAutoresizingMaskIntoConstraints = false
-			line.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-			line.heightAnchor.constraint(equalToConstant: lineHeight).isActive = true
-			line.widthAnchor.constraint(equalToConstant: 2).isActive = true
-			line.leadingAnchor.constraint(equalTo: firstAnchor, constant: majorTickPix).isActive = true
-			
-			line.backgroundColor = .robinBlack
-
-			let timeLabel = UILabel(); scrollView.addSubview(timeLabel)
-			timeLabel.translatesAutoresizingMaskIntoConstraints = false
-			timeLabel.bottomAnchor.constraint(equalTo: line.topAnchor, constant: -2).isActive = true
-			timeLabel.centerXAnchor.constraint(equalTo: line.centerXAnchor).isActive = true
-			timeLabel.text = TimeInterval(majorTick).clockStyle
-			timeLabel.textColor = .robinBlack
-			timeLabel.font = UIFont.systemFont(ofSize: 10, weight: .light)
-			
-		}
+		
 		
 	}
 	
@@ -233,17 +286,20 @@ class TimelineCell: UITableViewCell {
 		addButton.clipsToBounds = true
 		addButton.layer.cornerRadius = buttHeight/2
 		
-		addButton.addTarget(self, action: #selector(performSongSelect), for: .touchUpInside)
+		addButton.addTarget(self, action: #selector(performAddAction), for: .touchUpInside)
 		addButton.isUserInteractionEnabled = true
 		addButton.showsTouchWhenHighlighted = true
 	}
 	
-	@objc func performSongSelect() {
+	@objc func performAddAction() {
 		delegate?.didSelectAddButton(self)
 	}
 	
 	@objc func tappedTimelineBar(_ bar: UIButton) {
 		delegate?.didSelectTimelineBar(self, at: bar.tag)
+	}
+	@objc func performDeleteAction() {
+		delegate?.didSelectDeleteButton(self)
 	}
 	
     override func setSelected(_ selected: Bool, animated: Bool) {
