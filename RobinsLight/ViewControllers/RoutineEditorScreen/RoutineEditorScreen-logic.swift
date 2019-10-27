@@ -66,7 +66,20 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 	}
 	
 	func loadBufferSection() {
-		
+		self.alerts.getTextInput(withTitle: "How long a buffer do you want?", andHelp: "Please format as mm:ss.SSS", andPlaceholder: "00:10.32", completion: { (s) in
+			
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "mm:ss.SSS"
+			
+			guard let dateRepr = dateFormatter.date(from: s) else {
+				self.processNewSong(song: nil, err: "You did not format the duration properly")
+				return
+			}
+			let time = dateRepr.timeIntervalSince1970
+			
+			self.processNewSong(song: Song(id: UUID().uuidString, commonName: "Buffer", duration: time, url: nil), err: nil)
+			
+		})
 	}
 	
 	func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {

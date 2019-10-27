@@ -40,13 +40,13 @@ extension RoutineEditorScreen {
 		setNav()
 	}
 	func setNav() {
-		
+		let hasSongs = self.routine.songs.count > 0
 		self.navigationItem.rightBarButtonItems = [
 			UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewAsset)),
-			UIBarButtonItem(image: UIImage(systemName: "plus.magnifyingglass"), style: .done, target: self, action: #selector(zoomIn)),
-			UIBarButtonItem(image: UIImage(systemName: "minus.magnifyingglass"), style: .done, target: self, action: #selector(zoomOut)),
-			self.isPlaying ? self.pause : self.play
-		]
+			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "plus.magnifyingglass"), style: .done, target: self, action: #selector(zoomIn)) : nil,
+			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "minus.magnifyingglass"), style: .done, target: self, action: #selector(zoomOut)) : nil,
+			hasSongs ? (self.isPlaying ? self.pause : self.play) : nil
+		].compactMap({$0})
 	}
 	func initTable() {
 		self.table = UITableView(); view.addSubview(table)
@@ -58,7 +58,16 @@ extension RoutineEditorScreen {
 		table.delaysContentTouches = false
 		table.register(TimelineCell.self, forCellReuseIdentifier: TimelineCell.kID)
 		
+		self.persistentTrackCell.awakeFromNib()
+		self.persistentTrackCell.editorIdx = -1
+		self.persistentTrackCell.delegate = self
+		refreshTrackCell()
 		
+	}
+	func refreshTrackCell() {
+		self.persistentTrackCell.initFrom(timelineComponents: self.routine.songs)
+		self.persistentTrackCell.trackTitle = "Music Track"
+		self.persistentMusicBar = self.persistentTrackCell.scrollView
 	}
 
 	func initPlayhead() {
@@ -70,7 +79,7 @@ extension RoutineEditorScreen {
 		playBack.heightAnchor.constraint(equalToConstant: 2 * .padding).isActive = true
 		playBack.backgroundColor = UIColor.white.withAlphaComponent(0.85)
 		
-		let playTrack = UIView(); view.addSubview(playTrack)
+		playTrack = UIView(); view.addSubview(playTrack)
 		playTrack.translatesAutoresizingMaskIntoConstraints = false
 		playTrack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: .padding).isActive = true
 		playTrack.heightAnchor.constraint(equalToConstant: 3).isActive = true
@@ -92,6 +101,11 @@ extension RoutineEditorScreen {
 		playHead.backgroundColor = .robinPrimary
 		playHead.clipsToBounds = true
 		playHead.layer.cornerRadius = playHeadSize/2
+		
+		
+		self.playHeadDragger = UIPanGestureRecognizer(target: self, action: #selector(processPlayheadDrag(_:)))
+		self.playHeadDragger.delegate = self
+		self.playHead.addGestureRecognizer(self.playHeadDragger)
 		
 		let playHeadMarker = UIView(); view.addSubview(playHeadMarker)
 		playHeadMarker.translatesAutoresizingMaskIntoConstraints = false

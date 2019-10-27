@@ -60,17 +60,9 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if indexPath.section == 0 {
-			let cell = tableView.dequeueReusableCell(withIdentifier: TimelineCell.kID) as! TimelineCell
-			cell.initFrom(timelineComponents: self.routine.songs)
-			cell.editorIdx = -1
-			cell.trackTitle = "Music Track"
-			cell.delegate = self
-			
-			return cell
-			
+			return self.persistentTrackCell
 		} else {
 			return UITableViewCell()
-
 		}
 	}
 	

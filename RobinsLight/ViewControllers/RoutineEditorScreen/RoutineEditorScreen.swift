@@ -44,7 +44,6 @@ class RoutineEditorScreen: RobinVC {
 		for s in self.routine.songs {
 			breaks.append((breaks.last ?? 0) + s.duration)
 		}
-		print(breaks)
 		return breaks
 	}
 	var currSongIdx: Int?
@@ -52,18 +51,25 @@ class RoutineEditorScreen: RobinVC {
 		guard let c = self.currSongIdx else { return 0 }
 		return timeBreaks[c] + (self.player?.currentTime ?? 0)
 	}
+	var pendingOffset: CGFloat = 0
     
     // System
     
+	
     // UI Components
 	var play: UIBarButtonItem!
 	var pause: UIBarButtonItem!
 	var table: UITableView!
+	var playTrack: UIView!
 	var playHead: UIView!
 		var playHeadX: NSLayoutConstraint!
+		var playHeadDragger: UIPanGestureRecognizer!
 	var scrollers: [UIScrollView] {
 		return self.table.visibleCells.compactMap({($0 as? TimelineCell)?.scrollView})
 	}
+	
+	var persistentTrackCell = TimelineCell()
+		var persistentMusicBar: UIScrollView!
     
     
     override func viewDidLoad() {
