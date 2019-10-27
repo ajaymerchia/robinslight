@@ -39,6 +39,10 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		let song = self.routine.songs[songIdx]
 		
 		guard let url = song.url else {
+			// this is a buffer
+			self.player?.stop()
+			self.beginPlayheadAnimation()
+			
 			return
 		}
 		
@@ -145,9 +149,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		let distance = sender.translation(in: self.view).x + 9.6
 		let position = sender.location(in: self.playTrack).x
 		self.playHeadX.constant = position
-		
-		print("moved \(distance) to \(self.playHeadX.constant)")
-		
+				
 		let threshold: CGFloat = 0.85
 		if position > self.playTrack.frame.width * threshold && distance > 0 {
 			// advance the scrollers

@@ -37,6 +37,7 @@ class RoutineEditorScreen: RobinVC {
 	var routine: Routine!
 	var player: AVAudioPlayer?
 	var playerTimer: Timer?
+	var bufferTimer: Timer?
 		
 	var timeBreaks: [TimeInterval] {
 		var breaks: [TimeInterval] = [0]

@@ -29,9 +29,30 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 				RobinCache.records(for: Routine.self).store(self.routine, completion: nil)
 			}),
 			ActionConfig(title: "Move song", style: .default, callback: {
-				self.alerts.displayAlert(titled: .err, withDetail: "We haven't implemented moving songs yet", completion: nil)
+				self.moveSong(atIdx: idx)
 			})
 		])
+	}
+	func moveSong(atIdx idx: Int) {
+		let alertVC = UIAlertController(title: "Where would you like to move this song?", message: "We'll insert it right after the one you pick", preferredStyle: .alert)
+		
+		alertVC.addAction(UIAlertAction(title: "[Move to Beginning]", style: .default, handler: { (_) in
+			self.routine.songs.move(fromOffsets: IndexSet(integer: idx), toOffset: 0)
+			self.updateState()
+		}))
+		for i in (0..<self.routine.songs.count) {
+			if i == idx {
+				continue
+			}
+			let song = self.routine.songs[i]
+			alertVC.addAction(UIAlertAction(title: "After \(song.commonName)", style: .default, handler: { (_) in
+				self.routine.songs.move(fromOffsets: IndexSet(integer: idx), toOffset: i + 1)
+				self.updateState()
+			}))
+		}
+		alertVC.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))
+		
+		self.present(alertVC, animated: true, completion: nil)
 	}
 	
 	func requestNewSong() {
@@ -42,9 +63,9 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 			ActionConfig(title: "Files", style: .default, callback: {
 				self.loadSongFromFile()
 			}),
-			ActionConfig(title: "Add a Buffer Segment", style: .default, callback: {
-				self.loadBufferSection()
-			}),
+//			ActionConfig(title: "Add a Buffer Segment", style: .default, callback: {
+//				self.loadBufferSection()
+//			}),
 			ActionConfig(title: "Nevermind", style: .cancel, callback: nil)
 		])
 	}
@@ -75,7 +96,7 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 				self.processNewSong(song: nil, err: "You did not format the duration properly")
 				return
 			}
-			let time = dateRepr.timeIntervalSince1970
+			let time = dateRepr.timeIntervalSince1970.remainder(dividingBy: .hour)
 			
 			self.processNewSong(song: Song(id: UUID().uuidString, commonName: "Buffer", duration: time, url: nil), err: nil)
 			
