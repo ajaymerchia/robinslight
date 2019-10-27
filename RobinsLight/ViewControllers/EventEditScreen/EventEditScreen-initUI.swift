@@ -39,7 +39,6 @@ extension EventEditScreen {
 		format(btn: self.end, label: "End", val: self.proposedEvent.timelineEnd)
 		format(btn: durationButton, label: "Duration", val: self.proposedEvent.timelineDuration)
 		
-		self.table.isEditing = (self.proposedEvent.type == .fade || self.proposedEvent.type == .strobe)
 		self.table.reloadData()
 		table.allowsSelectionDuringEditing = true
 		
@@ -56,8 +55,20 @@ extension EventEditScreen {
 		
 		let navItem = UINavigationItem(title: "Add Effect")
 		navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(storeEvent))
+		navItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteEvent))
+		
 		
 		navbar.setItems([navItem], animated: true)
+	}
+	
+	@objc func deleteEvent() {
+		let id = self.routine.deviceIDs[self.deviceNo]
+		self.routine.deviceTracks[id]?.removeAll(where: {$0.id == self.proposedEvent.id})
+		RobinCache.records(for: Routine.self).store(self.routine) { (_) in
+			self.onUpdate?()
+			self.dismiss(animated: true, completion: nil)
+		}
+		
 	}
 	
 	func initTitle() {
@@ -103,6 +114,9 @@ extension EventEditScreen {
 				self.proposedEvent.color = nil
 				self.proposedEvent.colors = nil
 				self.proposedEvent.frequency = nil
+				if type == .strobe {
+					self.proposedEvent.frequency = 250
+				}
  				self.populateViews()
 				
 				

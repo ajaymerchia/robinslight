@@ -169,7 +169,10 @@ extension TimeInterval {
 	}
 	var clockStyleMilli: String? {
 		let minutes = Int(floor(self/60))
-		let seconds = self.remainder(dividingBy: 60)
+		var seconds = self.remainder(dividingBy: 60)
+		if seconds < 0 {
+			seconds += 60
+		}
 		
 		let nbrfrmt = NumberFormatter()
 		nbrfrmt.maximumIntegerDigits = 2

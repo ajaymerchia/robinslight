@@ -41,6 +41,9 @@ class EventEditScreen: RobinVC {
 	var onUpdate: BlankClosure?
 	var tmpIdx: Int?
 	
+//	static var dumbNames = ["PigLIT", "Winnie the Pooh", "Compoohter", "Eeyore Eyesore", "Chana Bhatura"]
+//	static var dumbAdjectives = ["Bonky", "Willy-nilly", "Hunny-Lovin", "Everything-Fearing"]
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,11 +61,50 @@ class EventEditScreen: RobinVC {
 		let deviceID = self.routine.deviceIDs[deviceNo]
 		let deviceEvents = self.routine.deviceTracks[deviceID]!
 		
-		let end = deviceEvents.sorted().first { (e) -> Bool in
-			return e.timelineStart > self.trackHeadLocation
-		}?.timelineEnd ?? (self.trackHeadLocation + TimeInterval(RoutineEditorScreen.secondsMajorMarker))
+		let defaultDuration = TimeInterval(RoutineEditorScreen.secondsMajorMarker)*2
 		
-		self.proposedEvent = Event(name: "Hold Effect1", type: .hold, start: self.trackHeadLocation, end: end)
+		
+		// prefer the trackhead location if available
+		if !deviceEvents.sorted().contains(where: { (e) -> Bool in
+			return (self.trackHeadLocation..<(self.trackHeadLocation + defaultDuration)).contains(e.timelineStart)
+		}) && !deviceEvents.map({ (e) -> Bool in
+			return (e.timelineStart...e.timelineEnd).contains(self.trackHeadLocation)
+		}).contains(true) {
+			self.proposedEvent = Event(name: "fx_\(deviceID.prefix(3))_\(deviceEvents.count)", type: .hold, start: self.trackHeadLocation, end: self.trackHeadLocation + defaultDuration)
+			return
+		}
+		
+		var allStartPoints = [TimeInterval(0)]
+		deviceEvents.sorted().forEach { (e) in
+			allStartPoints.append(e.timelineStart)
+		}
+		
+		var possibleStartPoints = [TimeInterval(0)]
+		deviceEvents.sorted().forEach { (e) in
+			possibleStartPoints.append(e.timelineEnd)
+		}
+		
+		
+		
+		var chosenStartPoint: TimeInterval = deviceEvents.sorted().last!.timelineEnd
+		
+		for i in (0..<allStartPoints.count - 1) {
+			let leftBarrier = possibleStartPoints[i]
+			let rightBarrier = allStartPoints[i + 1]
+			if (leftBarrier..<rightBarrier).contains(possibleStartPoints[i]) {
+				continue
+			}
+			
+			
+			let start = allStartPoints[i]
+			let nextStart = allStartPoints[i + 1]
+			if nextStart - start > defaultDuration {
+				chosenStartPoint = start
+				break
+			}
+		}
+		
+		self.proposedEvent = Event(name: "fx_\(deviceID.prefix(3))_\(deviceEvents.count)", type: .hold, start: chosenStartPoint, end: chosenStartPoint + defaultDuration)
 	}
 	
 	@objc func simulate() {

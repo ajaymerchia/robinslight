@@ -24,6 +24,9 @@ extension RoutineManagerScreen {
     override func viewWillDisappear(_ animated: Bool) {
         
     }
+	override func viewDidDisappear(_ animated: Bool) {
+		self.alerts.dismissHUD()
+	}
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let editor = segue.destination as? RoutineEditorScreen {

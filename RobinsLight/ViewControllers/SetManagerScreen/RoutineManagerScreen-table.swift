@@ -41,7 +41,11 @@ extension RoutineManagerScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: false)
-		self.performSegue(withIdentifier: "2editor", sender: fetch(indexPath))
+		self.alerts.startProgressHud(withTitle: "Loading \(RoutineManagerScreen.allRoutines[indexPath.row].title)")
+		Timer.fire(after: 0.5) {
+			self.performSegue(withIdentifier: "2editor", sender: self.fetch(indexPath))
+		}
+		
 	}
 	
 	func fetch(_ indexPath: IndexPath) -> Routine {

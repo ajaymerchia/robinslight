@@ -49,6 +49,10 @@ extension UIColor {
 	}
 
 	var hexString: String? {
+		if self == UIColor.black {
+			return "000000"
+		}
+		
 		if let decRad = self.decimalRadix {
 			return String(Int(decRad), radix: 16)
 		}

@@ -209,7 +209,12 @@ class TimelineCell: UITableViewCell {
 			totalTrackPixels += size
 			
 			songBar.translatesAutoresizingMaskIntoConstraints = false
+			if let fx = event as? Event {
+				songBar.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: CGFloat(fx.timelineStart) * RoutineEditorScreen.secondsToPixels).isActive = true
+			} else {
 				songBar.leadingAnchor.constraint(equalTo: prevLeftAnchor).isActive = true
+			}
+				
 				songBar.heightAnchor.constraint(equalTo: scrollView.heightAnchor, multiplier: 1).isActive = true
 				songBar.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
 				songBar.widthAnchor.constraint(equalToConstant: size).isActive = true
@@ -223,7 +228,7 @@ class TimelineCell: UITableViewCell {
 				songLabel.leadingAnchor.constraint(equalTo: songBar.leadingAnchor, constant: .mPadding).isActive = true
 				songLabel.topAnchor.constraint(equalTo: songBar.topAnchor, constant: .mPadding).isActive = true
 				songLabel.trailingAnchor.constraint(equalTo: songBar.trailingAnchor, constant: -.mPadding)
-			songLabel.font = UIFont.systemFont(ofSize: 12, weight: .black)
+			songLabel.font = UIFont.systemFont(ofSize: 9, weight: .black)
 			songLabel.text = event.timelineDescription
 			
 			

@@ -84,7 +84,7 @@ class Event: DataBlob, TimelineObject, Comparable {
 		if let f = frequency {
 			try values.encode(f, forKey: .frequency)
 		}
-		if let cs = colors?.map({$0.decimalRadix}) {
+		if let cs = colors?.compactMap({$0.decimalRadix}) {
 			try values.encode(cs, forKey: .colors)
 		}
 		if let c = color {

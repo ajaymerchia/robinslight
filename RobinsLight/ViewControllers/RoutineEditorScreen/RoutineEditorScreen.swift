@@ -24,6 +24,7 @@ class RoutineEditorScreen: RobinVC {
 		(8, 10),
 		(10, 5),
 		(15, 2),
+		(25, 2),
 	]
 	static var zoomIndex = 2 {
 		didSet {
