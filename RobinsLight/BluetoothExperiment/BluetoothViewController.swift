@@ -7,8 +7,22 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 class BluetoothViewController: UIViewController {
+	func manager(_ bluetoothManagerDelegate: BluetoothManager, didDiscover peripheral: CBNamedPeripheral) {
+		self.updateStatus(key: "Peripheral Selected", val: peripheral.name)
+		self.status = "Device identified"
+	}
+	func manager(_ bluetoothManagerDelegate: BluetoothManager, didConnectTo peripheral: CBPeripheral) {
+		self.updateStatus(key: "Connected", val: peripheral.name)
+		self.status = "Paired to Device"
+	}
+	func manager(_ bluetoothManagerDelegate: BluetoothManager, canWriteTo peripheral: CBPeripheral) {
+		self.status = "Ready to write"
+		self.button.isEnabled = true
+	}
+	
 
 	var label: UILabel!
 	var button: UIButton!
@@ -24,14 +38,17 @@ class BluetoothViewController: UIViewController {
 	
 	var currValue = BluetoothViewController.dataToSend.randomElement()! {
 		didSet {
-			setLabel()
+			updateStatus(key: "Next To Send", val: self.currValue)
 		}
 	}
+	
 	var status = "No Info" {
 		didSet {
-			setLabel()
+			updateStatus(key: "Status", val: self.status)
 		}
 	}
+	
+	var statusDict: [String: String] = [:]
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -39,7 +56,11 @@ class BluetoothViewController: UIViewController {
 		initButton()
 		initStatus()
 		
+//		BluetoothManager.shared.delegate = self
 		BluetoothManager.shared.findPeripherals()
+		
+		updateStatus(key: "Next To Send", val: self.currValue)
+		updateStatus(key: "Status", val: self.status)
 		
 	}
 	
@@ -51,7 +72,10 @@ class BluetoothViewController: UIViewController {
 		
 		button.setTitle("Trigger Action", for: .normal)
 		button.setTitleColor(.blue, for: .normal)
+		button.setTitleColor(.gray, for: .disabled)
+		button.isEnabled = false
 		
+		button.addTarget(self, action: #selector(sendDataToModule), for: .touchUpInside)
 		
 	}
 	
@@ -66,14 +90,18 @@ class BluetoothViewController: UIViewController {
 		setLabel()
 	}
 	func setLabel() {
-		label.text = """
-		Next To Send: \(currValue)
-		Status: \(status)
-		"""
+		label.text = self.statusDict.map({ (info) -> String in
+			return "\(info.key): \(info.value)"
+		}).sorted().joined(separator: "\n")
+	}
+	func updateStatus(key: String, val: String?) {
+		self.statusDict[key] = val
+		setLabel()
 	}
 	
 	@objc func sendDataToModule() {
-		
+//		BluetoothManager.shared.sendDataToPeripheral(str: currValue)
+		currValue = BluetoothViewController.dataToSend.randomElement()!
 	}
 
 

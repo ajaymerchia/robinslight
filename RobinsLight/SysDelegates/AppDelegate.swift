@@ -11,14 +11,14 @@ import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		Design.configDesign()
 		
 		IQKeyboardManager.shared().isEnabled = true
+		
+		print(Date().timeIntervalSince1970)
+//		BluetoothManager.shared.delegate = PiBluetooth.shared
 		
 		return true
 	}

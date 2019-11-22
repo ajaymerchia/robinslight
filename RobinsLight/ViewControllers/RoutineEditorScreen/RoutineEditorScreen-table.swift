@@ -12,6 +12,18 @@ import UIKit
 import ARMDevSuite
 
 extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, TimelineCellDelegate, UIScrollViewDelegate {
+	func didSelectTimelineTitle(_ cell: TimelineCell) {
+		let deviceID = self.routine.deviceIDs[cell.editorIdx]
+		RobinCache.records(for: Device.self).get(id: deviceID) { (d, err) in
+			guard let device = d, err == nil else {
+				self.alerts.displayAlert(titled: .err, withDetail: "Couldn't find the device object for this ID. Try removing and re-adding this device.", completion: nil)
+				return
+			}
+			
+			self.showOptions(forDevice: device)
+		}
+	}
+	
 	func didSelectDeleteButton(_ cell: TimelineCell) {
 		let deviceID = self.routine.deviceIDs[cell.editorIdx]
 		
@@ -21,7 +33,7 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 				return
 			}
 			
-			let vc = UIAlertController(title: "Are you sure you want to remove \(d.id) \(d.commonName == nil ? "" : "(\(d.commonName!))")", message: "You will lose any events tuned for this device as well.", preferredStyle: .alert)
+			let vc = UIAlertController(title: "Are you sure you want to remove \(d.id) \(d.commonName == nil ? "" : "(\(d.commonName))")", message: "You will lose any events tuned for this device as well.", preferredStyle: .alert)
 			
 			vc.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
 				// delete
@@ -70,8 +82,8 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		let view = UIView()
 		view.backgroundColor = UIColor.robinSecondary.withAlphaComponent(0.5)
 		let label = UILabel(); view.addSubview(label)
-			label.translatesAutoresizingMaskIntoConstraints = false
-			label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding).isActive = true
 		
 		label.text = ["Track", "Stage Assets"][section]
@@ -80,7 +92,7 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		
 		
 		return view
-	
+		
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return section == 0 ? 1 : self.routine.deviceIDs.count
@@ -100,17 +112,18 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		} else {
 			let id = self.routine.deviceIDs[indexPath.row]
 			let events = self.routine.deviceTracks[id] ?? []
-		
+			
 			let cell = tableView.dequeueReusableCell(withIdentifier: TimelineCell.kID) as! TimelineCell
 			cell.awakeFromNib()
 			cell.initFrom(timelineComponents: events, isDeviceTrack: true, totalLength: self.scrollViewWidth)
 			cell.editorIdx = indexPath.row
 			cell.delegate = self
-			cell.trackTitle = id
+			
 			cell.scrollView?.delegate = self
 			
 			RobinCache.records(for: Device.self).get(id: id) { (d, _) in
-				 cell.additionalInfo = d?.commonName
+				cell.trackTitle = d?.commonName
+				cell.additionalInfo = id
 				
 			}
 			
@@ -127,5 +140,5 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		
 	}
 	
-
+	
 }

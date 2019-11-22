@@ -67,7 +67,7 @@ class DataStack {
 			}
 		} catch {
 			// delete the corrupted file
-			delete(type: type, id: id, completion: nil)
+//			delete(type: type, id: id, completion: nil)
 			completion?(nil, error.localizedDescription)
 		}
 

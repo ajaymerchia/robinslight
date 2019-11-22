@@ -7,16 +7,21 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 class Device: DataBlob {
 	static var dbRef: String = "devices"
 	
+	var uid: UUID {
+		return UUID(uuidString: self.id)!
+	}
 	/// The Peripheral ID of the device
 	var id: String
+	var commonName: String
 	
-	var commonName: String?
+//	var rwChannel: CBCharacteristic
 	
-	init(id: String, commonName: String?) {
+	init(id: String, commonName: String) {
 		self.id = id
 		self.commonName = commonName
 	}

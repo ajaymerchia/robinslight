@@ -28,6 +28,20 @@ class Event: DataBlob, TimelineObject, Comparable {
 		case strobe = "strobe"
 		case hold = "hold"
 		case off = "off"
+		
+		var arduinoDescription: String {
+			switch self {
+			case .fade:
+				return "fade"
+			case .strobe:
+				return "strb"
+			case .hold:
+				return "stat"
+			case .off:
+				return "toff"
+			}
+		}
+		
 	}
 	
 	static var dbRef: String = "events"

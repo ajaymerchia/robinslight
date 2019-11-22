@@ -37,11 +37,14 @@ extension RoutineEditorScreen {
 		self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 		
 		
+		
+		
 		setNav()
 	}
 	func setNav() {
 		let hasSongs = self.routine.songs.count > 0
 		self.navigationItem.rightBarButtonItems = [
+			UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportDeviceTrack)),
 			UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewAsset)),
 			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "plus.magnifyingglass"), style: .done, target: self, action: #selector(zoomIn)) : nil,
 			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "minus.magnifyingglass"), style: .done, target: self, action: #selector(zoomOut)) : nil,
@@ -67,6 +70,9 @@ extension RoutineEditorScreen {
 	func refreshTrackCell() {
 		self.persistentTrackCell.initFrom(timelineComponents: self.routine.songs, totalLength: self.scrollViewWidth)
 		self.persistentTrackCell.trackTitle = "Music Track"
+		if self.persistentTrackCell.trackTitleView != nil {
+			self.persistentTrackCell.trackTitleView.isUserInteractionEnabled = false
+		}
 		self.persistentMusicBar = self.persistentTrackCell.scrollView
 	}
 
