@@ -131,8 +131,6 @@ class Event: DataBlob, TimelineObject, Comparable {
 			self.colors = val.map({UIColor(hexStr: String(Int($0), radix: 16))})
 		} else if self.type == .hold {
 			let val = try values.decode(Int.self, forKey: .color)
-			print("stored a color")
-			print(val)
 			self.color = UIColor(hexStr: String(val, radix: 16))
 		}
 	}

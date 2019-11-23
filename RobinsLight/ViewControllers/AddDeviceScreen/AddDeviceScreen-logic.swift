@@ -12,81 +12,102 @@ import UIKit
 import ARMDevSuite
 import CoreBluetooth
 
-extension AddDeviceScreen: BluetoothManagerDelegate {
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, didDiscover peripheral: CBNamedPeripheral) {
-		self.scanResults[peripheral.id] = peripheral
-		self.table.reloadSections(IndexSet(integer: 1), with: .automatic)
+extension AddDeviceScreen: PiBluetoothAPIDelegate {
+	func piAPI(piAPI: PiBluetoothAPI, disconnectedFrom device: Device, explanation: String?) {
+		self.alerts.displayAlert(titled: "FYI", withDetail: explanation ?? "\(device.commonName) has disconnected.", completion: nil)
 	}
 	
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, didConnectTo peripheral: CBPeripheral) {
-		guard self.pendingDevice?.id == peripheral.identifier.uuidString else {
-			self.alerts.triggerHudFailure(withHeader: "Pairing Cancelled", andDetail: nil)
-			return
-		}
-		self.alerts.changeHUD(toTitle: "Validating Compatibility", andDetail: nil)
-		BluetoothManager.shared.validate(peripheral: peripheral)
-		
-		return
-	}
-	
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, canWriteTo peripheral: CBPeripheral, onChannel channel: CBCharacteristic) {
-		// store the device in FileSys
-		guard let pDevice = self.pendingDevice else {
-			// ignore this run -- a previous delegate has already responded
-			return
-		}
-		guard peripheral.identifier.uuidString == self.pendingDevice?.id else {
-			self.alerts.triggerHudFailure(withHeader: "Device Not Compatible", andDetail: "Does not support Read/Write")
-			return
-		}
-		
-		
-		RobinCache.records(for: Device.self).store(pDevice) { (err) in
-			guard err == nil else {
-				self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
-				return
-			}
-			self.alerts.triggerHudSuccess(withHeader: "Device Added!", andDetail: nil) {
-				self.addExistingDeviceToRoutine(pDevice)
-			}
-			
-		}
-		
-	}
-	
-	@objc func searchForBluetoothReceivers() {
-		BluetoothManager.shared.delegate = self
-		BluetoothManager.shared.findPeripherals()
-	}
-	
-	
-	
-	
-	func setupNewDevice(_ device: CBNamedPeripheral) {
-		self.alerts.getTextInput(withTitle: "What would you like to name this device?", andHelp: nil, andPlaceholder: device.name, placeholderAsText: true, completion: { (assignedName) in
-			
-			self.alerts.startProgressHud(withTitle: "Pairing...")
-			self.pendingDevice = Device(id: device.id, commonName: assignedName)
-			
-			// pair with the device
-			BluetoothManager.shared.connectTo(peripheral: device.peripheral)
-			
-		})
-		
-		
-//		Timer.fire(after: 1) {
-//			self.alerts.changeHUD(toTitle: "Setting up...", andDetail: nil)
-//			Timer.fire(after: 1) {
-//				self.alerts.triggerHudSuccess(withHeader: "Device Added!", andDetail: nil, onComplete: {
-////					self.addExistingDeviceToRoutine(device)
-//				})
+//	func manager(_ bluetoothManagerDelegate: BluetoothLib, didConnectTo peripheral: CBPeripheral) {
+//		guard self.pendingDevice?.id == peripheral.identifier.uuidString else {
+//			self.alerts.triggerHudFailure(withHeader: "Pairing Cancelled", andDetail: nil)
+//			return
+//		}
+//		self.alerts.changeHUD(toTitle: "Validating Compatibility", andDetail: nil)
+//		BluetoothLib.shared.validate(peripheral: peripheral)
 //
+//		return
+//	}
+	
+//	func manager(_ bluetoothManagerDelegate: BluetoothLib, canWriteTo peripheral: CBPeripheral, onChannel channel: CBCharacteristic) {
+//		// store the device in FileSys
+//		guard let pDevice = self.pendingDevice else {
+//			// ignore this run -- a previous delegate has already responded
+//			return
+//		}
+//		guard peripheral.identifier.uuidString == self.pendingDevice?.id else {
+//			self.alerts.triggerHudFailure(withHeader: "Device Not Compatible", andDetail: "Does not support Read/Write")
+//			return
+//		}
+//
+//
+//		RobinCache.records(for: Device.self).store(pDevice) { (err) in
+//			guard err == nil else {
+//				self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
+//				return
 //			}
-////			RobinCache.records(for: Device.self).store(device) { (err) in
-////
-////			}
+//			self.alerts.triggerHudSuccess(withHeader: "Device Added!", andDetail: nil) {
+//				self.addExistingDeviceToRoutine(pDevice)
+//			}
 //
 //		}
+//
+//	}
+	
+	@objc func searchForBluetoothReceivers() {
+		PiBluetoothAPI.shared.findDevices { (device, err) in
+			guard let device = device, err == nil else { return }
+			self.scanResults[device.id] = device
+			self.table.reloadSections(IndexSet(integer: 1), with: .automatic)
+		}
+	}
+	
+	
+	
+	
+	func setupNewDevice(_ device: Device) {
+		PiBluetoothAPI.shared.stopSearching()
+		self.alerts.getTextInput(withTitle: "What would you like to name this device?", andHelp: nil, andPlaceholder: device.commonName, placeholderAsText: true, completion: { (assignedName) in
+			
+			self.alerts.startProgressHud(withTitle: "Pairing...")
+			device.commonName = assignedName
+			self.pendingDevice = device
+			// Connect to Device
+			PiBluetoothAPI.shared.connectTo(device: device) { (err) in
+				guard err == nil else {
+					self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+					self.pendingDevice = nil
+					return
+				}
+				print("Connected to \(device.commonName)")
+				self.alerts.changeHUD(toTitle: "Validating...", andDetail: nil)
+				
+				
+				// Validate Device
+				PiBluetoothAPI.shared.validateCompatibility(for: device) { (err) in
+					guard err == nil else {
+						self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+						self.pendingDevice = nil
+						return
+					}
+					print("Validated \(device.commonName)")
+					
+					// Store Device
+					RobinCache.records(for: Device.self).store(device) { (err) in
+						guard err == nil else {
+							self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
+							return
+						}
+						self.alerts.triggerHudSuccess(withHeader: "Device Added!", andDetail: nil) {
+							self.addExistingDeviceToRoutine(device)
+						}
+
+					}
+					
+				}
+				
+			}
+			
+		})
 		
 	}
 	

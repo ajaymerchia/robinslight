@@ -10,15 +10,15 @@ import UIKit
 import CoreBluetooth
 
 class BluetoothViewController: UIViewController {
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, didDiscover peripheral: CBNamedPeripheral) {
+	func manager(_ bluetoothManagerDelegate: BluetoothLib, didDiscover peripheral: CBNamedPeripheral) {
 		self.updateStatus(key: "Peripheral Selected", val: peripheral.name)
 		self.status = "Device identified"
 	}
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, didConnectTo peripheral: CBPeripheral) {
+	func manager(_ bluetoothManagerDelegate: BluetoothLib, didConnectTo peripheral: CBPeripheral) {
 		self.updateStatus(key: "Connected", val: peripheral.name)
 		self.status = "Paired to Device"
 	}
-	func manager(_ bluetoothManagerDelegate: BluetoothManager, canWriteTo peripheral: CBPeripheral) {
+	func manager(_ bluetoothManagerDelegate: BluetoothLib, canWriteTo peripheral: CBPeripheral) {
 		self.status = "Ready to write"
 		self.button.isEnabled = true
 	}
@@ -57,7 +57,7 @@ class BluetoothViewController: UIViewController {
 		initStatus()
 		
 //		BluetoothManager.shared.delegate = self
-		BluetoothManager.shared.findPeripherals()
+//		BluetoothLib.shared.findPeripherals()
 		
 		updateStatus(key: "Next To Send", val: self.currValue)
 		updateStatus(key: "Status", val: self.status)

@@ -226,7 +226,7 @@ class TimelineCell: UITableViewCell {
 			songLabel.translatesAutoresizingMaskIntoConstraints = false
 			songLabel.leadingAnchor.constraint(equalTo: songBar.leadingAnchor, constant: .mPadding).isActive = true
 			songLabel.topAnchor.constraint(equalTo: songBar.topAnchor, constant: .mPadding).isActive = true
-			songLabel.trailingAnchor.constraint(equalTo: songBar.trailingAnchor, constant: -.mPadding)
+			songLabel.trailingAnchor.constraint(equalTo: songBar.trailingAnchor, constant: -.mPadding).isActive = true
 			songLabel.font = UIFont.systemFont(ofSize: 9, weight: .black)
 			songLabel.text = event.timelineDescription
 			

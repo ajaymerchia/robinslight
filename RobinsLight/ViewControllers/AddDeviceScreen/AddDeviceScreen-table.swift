@@ -67,9 +67,9 @@ extension AddDeviceScreen: UITableViewDelegate, UITableViewDataSource {
 		} else {
 			if uniques.count > 0 {
 				let device = self.uniques[indexPath.row]
-				cell.textLabel?.text = device.name
+				cell.textLabel?.text = device.commonName
 				cell.detailTextLabel?.text = device.id
-				cell.backgroundColor = BluetoothManager.isRelevantDevice(device.name) ? (UIColor.robinLavender).withAlphaComponent(0.3) : .clear
+				cell.backgroundColor = device.isRelevant ? (UIColor.robinLavender).withAlphaComponent(0.3) : .clear
 			} else {
 				cell.textLabel?.text = "No devices detected!"
 				cell.detailTextLabel?.text = "Press the refresh button to try again."

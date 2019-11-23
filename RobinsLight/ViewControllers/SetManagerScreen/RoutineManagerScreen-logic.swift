@@ -23,7 +23,6 @@ extension RoutineManagerScreen {
 				RobinCache.records(for: Routine.self).get(id: id) { (r, err) in
 					if let r = r {
 						RoutineManagerScreen.allRoutines.append(r)
-						print(r.prettyJSONRepr)
 					} else {
 						print(err)
 					}

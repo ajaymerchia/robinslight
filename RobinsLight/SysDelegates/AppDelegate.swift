@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		IQKeyboardManager.shared().isEnabled = true
 		
 		print(Date().timeIntervalSince1970)
-//		BluetoothManager.shared.delegate = PiBluetooth.shared
 		
 		return true
 	}

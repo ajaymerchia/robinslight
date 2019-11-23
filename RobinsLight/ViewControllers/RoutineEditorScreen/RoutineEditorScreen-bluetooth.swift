@@ -11,7 +11,11 @@ import Foundation
 import UIKit
 import ARMDevSuite
 
-extension RoutineEditorScreen {
+extension RoutineEditorScreen: PiBluetoothAPIDelegate {
+	func piAPI(piAPI: PiBluetoothAPI, disconnectedFrom device: Device, explanation: String?) {
+		self.alerts.displayAlert(titled: "FYI", withDetail: explanation ?? "\(device.commonName) has disconnected.", completion: nil)
+	}
+	
 	func showOptions(forDevice device: Device) {
 		self.alerts.showActionSheet(withTitle: device.commonName, andDetail: device.id, configs: [
 			ActionConfig(title: "Check Connection", style: .default, callback: {
@@ -59,7 +63,7 @@ extension RoutineEditorScreen {
 //			}
 
 			
-			BluetoothManager.shared.send(data: data, to: device) { (err) in
+			BluetoothLib.shared.send(data: data, to: device) { (err) in
 				guard err == nil else {
 					self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
 					return
@@ -80,7 +84,7 @@ extension RoutineEditorScreen {
 	
 	func checkConnection(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Verifying")
-		BluetoothManager.shared.validateConnection(toDevice: device) { (err) in
+		BluetoothLib.shared.validateConnection(toDevice: device) { (err) in
 			guard err == nil else {
 				self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
 				return

@@ -23,6 +23,8 @@ extension RoutineEditorScreen: AddDeviceScreenDelegate {
 		RobinCache.records(for: Routine.self).store(self.routine) { (_) in
 			self.table.reloadSections(IndexSet(integer: 1), with: .fade)
 		}
+		
+		PiBluetoothAPI.shared.delegate = self
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

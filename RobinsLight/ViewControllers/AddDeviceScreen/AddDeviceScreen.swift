@@ -24,19 +24,11 @@ class AddDeviceScreen: RobinVC {
 	
 	var existingDevices = [Device]()
 	
-	var scanResults = [String: CBNamedPeripheral]()
-	var uniques: [CBNamedPeripheral] {
+	var scanResults = [String: Device]()
+	var uniques: [Device] {
 		return self.scanResults.values.filter { (d) -> Bool in
 			!self.existingDevices.contains(where: {$0.id == d.id})
-		}.sorted { (n1, n2) -> Bool in
-			let n1Rel = BluetoothManager.isRelevantDevice(n1.name)
-			let n2Rel = BluetoothManager.isRelevantDevice(n2.name)
-			if n1Rel == n2Rel {
-				return n1.name < n2.name
-			} else {
-				return n1Rel
-			}
-		}
+		}.sorted()
 	}
 	
 	
@@ -51,13 +43,14 @@ class AddDeviceScreen: RobinVC {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+		PiBluetoothAPI.shared.delegate = self
 		getData()
 		initUI()
 		searchForBluetoothReceivers()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		BluetoothManager.shared.manager.stopScan()
+//		BluetoothLib.shared.manager.stopScan()
 	}
 	
 }

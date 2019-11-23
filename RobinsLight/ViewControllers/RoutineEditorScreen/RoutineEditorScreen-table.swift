@@ -27,22 +27,32 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 	func didSelectDeleteButton(_ cell: TimelineCell) {
 		let deviceID = self.routine.deviceIDs[cell.editorIdx]
 		
+		func delete() {
+			self.routine.deviceTracks.removeValue(forKey: deviceID)
+			self.routine.deviceIDs.remove(at: cell.editorIdx)
+			
+			self.table.deleteRows(at: [IndexPath(row: cell.editorIdx, section: 1)], with: .automatic)
+			
+			RobinCache.records(for: Routine.self).store(self.routine, completion: nil)
+		}
+		
 		RobinCache.records(for: Device.self).get(id: deviceID) { (d, err) in
 			guard let d = d, err == nil else {
-				self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+				self.alerts.displayAlert(titled: .err, withDetail: err) {
+					self.alerts.askYesOrNo(question: "Since the device is failing would you like to delete this track?", helpText: nil) { (d) in
+						if d { delete() }
+					}
+				}
+				
+				
 				return
 			}
 			
-			let vc = UIAlertController(title: "Are you sure you want to remove \(d.id) \(d.commonName == nil ? "" : "(\(d.commonName))")", message: "You will lose any events tuned for this device as well.", preferredStyle: .alert)
+			let vc = UIAlertController(title: "Are you sure you want to remove \(d.commonName) (\(d.id))", message: "You will lose any events tuned for this device as well.", preferredStyle: .alert)
 			
 			vc.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (_) in
 				// delete
-				self.routine.deviceTracks.removeValue(forKey: deviceID)
-				self.routine.deviceIDs.remove(at: cell.editorIdx)
-				
-				self.table.deleteRows(at: [IndexPath(row: cell.editorIdx, section: 1)], with: .automatic)
-				
-				RobinCache.records(for: Routine.self).store(self.routine, completion: nil)
+				delete()
 				
 			}))
 			vc.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))

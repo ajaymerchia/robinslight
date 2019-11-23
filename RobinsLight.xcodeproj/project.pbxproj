@@ -14,13 +14,13 @@
 		B71DCEBC23640E0500D54AF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBA23640E0500D54AF1 /* Main.storyboard */; };
 		B71DCEBE23640E0500D54AF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBD23640E0500D54AF1 /* Assets.xcassets */; };
 		B71DCEC123640E0500D54AF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71DCEBF23640E0500D54AF1 /* LaunchScreen.storyboard */; };
-		B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEC82364100000D54AF1 /* BluetoothManager.swift */; };
+		B71DCEC92364100000D54AF1 /* BluetoothLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCEC82364100000D54AF1 /* BluetoothLib.swift */; };
 		B71DCECD23641A3700D54AF1 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71DCECC23641A3700D54AF1 /* ExternalAccessory.framework */; };
 		B71DCED22364444A00D54AF1 /* DataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED12364444A00D54AF1 /* DataStack.swift */; };
 		B71DCED42364447000D54AF1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED32364447000D54AF1 /* Utils.swift */; };
 		B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED5236444C000D54AF1 /* RobinsCache.swift */; };
 		B71DCED8236444FD00D54AF1 /* RoutineManagerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */; };
-		B75CEAB22387699300C3E4BA /* PiBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75CEAB12387699300C3E4BA /* PiBluetooth.swift */; };
+		B75CEAB42387718100C3E4BA /* PiBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75CEAB32387718100C3E4BA /* PiBluetooth.swift */; };
 		B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A2236446DA00D3A9DF /* RobinVC.swift */; };
 		B78848A5236446F800D3A9DF /* RoutineManagerScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */; };
 		B78848A72364472E00D3A9DF /* RoutineManagerScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */; };
@@ -65,14 +65,14 @@
 		B71DCEBD23640E0500D54AF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B71DCEC023640E0500D54AF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B71DCEC223640E0500D54AF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B71DCEC82364100000D54AF1 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		B71DCEC82364100000D54AF1 /* BluetoothLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLib.swift; sourceTree = "<group>"; };
 		B71DCECA23641A3700D54AF1 /* RobinsLight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RobinsLight.entitlements; sourceTree = "<group>"; };
 		B71DCECC23641A3700D54AF1 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		B71DCED12364444A00D54AF1 /* DataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStack.swift; sourceTree = "<group>"; };
 		B71DCED32364447000D54AF1 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B71DCED5236444C000D54AF1 /* RobinsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinsCache.swift; sourceTree = "<group>"; };
 		B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManagerScreen.swift; sourceTree = "<group>"; };
-		B75CEAB12387699300C3E4BA /* PiBluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiBluetooth.swift; sourceTree = "<group>"; };
+		B75CEAB32387718100C3E4BA /* PiBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiBluetooth.swift; sourceTree = "<group>"; };
 		B78848A2236446DA00D3A9DF /* RobinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinVC.swift; sourceTree = "<group>"; };
 		B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-initUI.swift"; sourceTree = "<group>"; };
 		B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-logic.swift"; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 				B7D574FD23644618004188E0 /* ViewControllers */,
 				B71DCED02364444100D54AF1 /* Managers */,
 				B71DCECE236443BD00D54AF1 /* SysDelegates */,
-				B71DCECF236443DB00D54AF1 /* BluetoothExperiment */,
+				B71DCECF236443DB00D54AF1 /* BluetoothClients */,
 				B71DCEBD23640E0500D54AF1 /* Assets.xcassets */,
 				B71DCEBA23640E0500D54AF1 /* Main.storyboard */,
 				B71DCEBF23640E0500D54AF1 /* LaunchScreen.storyboard */,
@@ -172,14 +172,14 @@
 			path = SysDelegates;
 			sourceTree = "<group>";
 		};
-		B71DCECF236443DB00D54AF1 /* BluetoothExperiment */ = {
+		B71DCECF236443DB00D54AF1 /* BluetoothClients */ = {
 			isa = PBXGroup;
 			children = (
 				B71DCEB823640E0500D54AF1 /* BluetoothViewController.swift */,
-				B71DCEC82364100000D54AF1 /* BluetoothManager.swift */,
-				B75CEAB12387699300C3E4BA /* PiBluetooth.swift */,
+				B71DCEC82364100000D54AF1 /* BluetoothLib.swift */,
+				B75CEAB32387718100C3E4BA /* PiBluetooth.swift */,
 			);
-			path = BluetoothExperiment;
+			path = BluetoothClients;
 			sourceTree = "<group>";
 		};
 		B71DCED02364444100D54AF1 /* Managers */ = {
@@ -422,7 +422,7 @@
 				B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */,
 				B78848D32365471A00D3A9DF /* AddDeviceScreen-logic.swift in Sources */,
 				B78848D5236547A200D3A9DF /* Devices.swift in Sources */,
-				B71DCEC92364100000D54AF1 /* BluetoothManager.swift in Sources */,
+				B71DCEC92364100000D54AF1 /* BluetoothLib.swift in Sources */,
 				B78848CE236546CC00D3A9DF /* AddDeviceScreen.swift in Sources */,
 				B78848D723654BB600D3A9DF /* AddDeviceScreen-table.swift in Sources */,
 				B78848DB2365703000D3A9DF /* EventEditScreen.swift in Sources */,
@@ -432,7 +432,7 @@
 				B78848D12365470700D3A9DF /* AddDeviceScreen-initUI.swift in Sources */,
 				B78848AB236449AE00D3A9DF /* RoutineManagerScreen-table.swift in Sources */,
 				B71DCED42364447000D54AF1 /* Utils.swift in Sources */,
-				B75CEAB22387699300C3E4BA /* PiBluetooth.swift in Sources */,
+				B75CEAB42387718100C3E4BA /* PiBluetooth.swift in Sources */,
 				B78848AF23644AC700D3A9DF /* DesignDelegate.swift in Sources */,
 				B78848B323644C6200D3A9DF /* RoutineManager.swift in Sources */,
 			);
