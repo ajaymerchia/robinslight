@@ -155,10 +155,26 @@ extension PiBluetoothAPI {
 			completion?(err)
 		}
 	}
-	private func findPeripheral(for device: Device, completion: Response<CBNamedPeripheral>?) {
+	private func findPeripheral(for device: Device, timeOut: TimeInterval = 15, completion: Response<CBNamedPeripheral>?) {
 		
 		guard let peripheral = knownPeripherals[device.id] else {
 			// use BluetoothLib to search for it
+			var found: Bool = false
+			Timer.scheduledTimer(withTimeInterval: timeOut, repeats: false) { (_) in
+				if !found {
+					completion?(nil, "Request timed out. Could not find device.")
+					self.stopSearching()
+				}
+			}
+			BluetoothLib.shared.pipeDevices(for: self._id) { (cbdevice, err) in
+				guard let d = cbdevice, err == nil else { return }
+				if d.id == device.id {
+					self.knownPeripherals[d.id] = d
+					found = true
+					self.stopSearching()
+					completion?(d, nil)
+				}
+			}
 			
 			
 			return

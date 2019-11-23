@@ -128,8 +128,8 @@ extension RoutineEditorScreen {
 		self.trackIndicator.textColor = .robinPrimary
 		self.trackIndicator.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
 		self.trackIndicator.text = "0:00"
-			
-		
+				
 	}
+	
 	
 }

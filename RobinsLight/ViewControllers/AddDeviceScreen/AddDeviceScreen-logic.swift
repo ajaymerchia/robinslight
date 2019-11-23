@@ -16,42 +16,7 @@ extension AddDeviceScreen: PiBluetoothAPIDelegate {
 	func piAPI(piAPI: PiBluetoothAPI, disconnectedFrom device: Device, explanation: String?) {
 		self.alerts.displayAlert(titled: "FYI", withDetail: explanation ?? "\(device.commonName) has disconnected.", completion: nil)
 	}
-	
-//	func manager(_ bluetoothManagerDelegate: BluetoothLib, didConnectTo peripheral: CBPeripheral) {
-//		guard self.pendingDevice?.id == peripheral.identifier.uuidString else {
-//			self.alerts.triggerHudFailure(withHeader: "Pairing Cancelled", andDetail: nil)
-//			return
-//		}
-//		self.alerts.changeHUD(toTitle: "Validating Compatibility", andDetail: nil)
-//		BluetoothLib.shared.validate(peripheral: peripheral)
-//
-//		return
-//	}
-	
-//	func manager(_ bluetoothManagerDelegate: BluetoothLib, canWriteTo peripheral: CBPeripheral, onChannel channel: CBCharacteristic) {
-//		// store the device in FileSys
-//		guard let pDevice = self.pendingDevice else {
-//			// ignore this run -- a previous delegate has already responded
-//			return
-//		}
-//		guard peripheral.identifier.uuidString == self.pendingDevice?.id else {
-//			self.alerts.triggerHudFailure(withHeader: "Device Not Compatible", andDetail: "Does not support Read/Write")
-//			return
-//		}
-//
-//
-//		RobinCache.records(for: Device.self).store(pDevice) { (err) in
-//			guard err == nil else {
-//				self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
-//				return
-//			}
-//			self.alerts.triggerHudSuccess(withHeader: "Device Added!", andDetail: nil) {
-//				self.addExistingDeviceToRoutine(pDevice)
-//			}
-//
-//		}
-//
-//	}
+
 	
 	@objc func searchForBluetoothReceivers() {
 		PiBluetoothAPI.shared.findDevices { (device, err) in
@@ -60,9 +25,6 @@ extension AddDeviceScreen: PiBluetoothAPIDelegate {
 			self.table.reloadSections(IndexSet(integer: 1), with: .automatic)
 		}
 	}
-	
-	
-	
 	
 	func setupNewDevice(_ device: Device) {
 		PiBluetoothAPI.shared.stopSearching()

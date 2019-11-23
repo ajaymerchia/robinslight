@@ -42,41 +42,12 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 				return
 			}
 			
-			var data = track
-			
-//			
-//			var cnt = 10
-//			
-//			Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (t) in
-//				guard cnt < 200 else {
-//					t.invalidate()
-//					return
-//				}
-//				print("Attempting \(cnt) characters")
-//				
-//				
-//				let countStr = "\(cnt)_"
-//				let testStr = "\(countStr)\(data.prefix(cnt-countStr.count))"
-//				BluetoothManager.shared.send(data: testStr, to: device, completion: nil)
-//
-//				cnt += 5
-//			}
-
-			
-			BluetoothLib.shared.send(data: data, to: device) { (err) in
-				guard err == nil else {
+			PiBluetoothAPI.shared.write(data: track, device: device, service: .pingpong, channel: .pingpong) { (err) in
+				if err == nil {
+					self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "File sent to device.")
+				} else {
 					self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
-					return
 				}
-				
-				
-				self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "Track uploaded", onComplete: {
-					
-				})
-				Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false) { (_) in
-					self.startRunTime()
-				}
-				
 			}
 			
 		}
@@ -84,14 +55,13 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 	
 	func checkConnection(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Verifying")
-		BluetoothLib.shared.validateConnection(toDevice: device) { (err) in
+		PiBluetoothAPI.shared.validateCompatibility(for: device) { (err) in
 			guard err == nil else {
 				self.alerts.triggerHudFailure(withHeader: .err, andDetail: err)
 				return
 				
 			}
-			self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "Able to connect to device")
-
+			self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "Device connected and validated")
 		}
 	}
 	

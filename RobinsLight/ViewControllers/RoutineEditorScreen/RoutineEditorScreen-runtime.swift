@@ -94,7 +94,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 	}
 	
 	func beginPlayheadAnimation() {
-		let animationPrecision: TimeInterval = 0.05
+		let animationPrecision: TimeInterval = 0.0474
 		
 		UIView.animate(withDuration: 0.5) {
 			self.resetScrollers()
@@ -103,7 +103,7 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		
 		self.playerTimer = Timer.scheduledTimer(withTimeInterval: animationPrecision, repeats: true, block: { (_) in
 			
-			self.trackIndicator.text = self.getTargetPosition().clockStyle
+			self.trackIndicator.text = self.getTargetPosition().clockStyleMilli
 			
 			let movement = CGFloat(animationPrecision) * RoutineEditorScreen.secondsToPixels
 			if self.playHeadX.constant < self.view.frame.width/2 - .padding {
@@ -156,12 +156,13 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		if isPlaying {
 			return
 		}
+
 		let distance = sender.translation(in: self.view).x
 		let position = sender.location(in: self.playTrack).x
 		self.playHeadX.constant = max(0, position)
 
 		
-		self.trackIndicator.text = getTargetPosition().clockStyle
+		self.trackIndicator.text = getTargetPosition().clockStyleMilli
 		
 				
 		let threshold: CGFloat = 0.85
