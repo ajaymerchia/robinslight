@@ -18,10 +18,13 @@ enum PiChannel: String {
 	// Channels for PingPongService
 	case pingpong = "8e66b5c3-9851-4a29-8252-295ad263f4b1"
 	
-	// Channels for PiServices
+	// Channels for SystemInfoService
 	case memory = "ff51b30e-d7e2-4d93-8842-a7c4a57dfb01"
 	case uptime = "ff51b30e-d7e2-4d93-8842-a7c4a57dfb02"
 	case loadaverage = "ff51b30e-d7e2-4d93-8842-a7c4a57dfb03"
+	
+	// Channels for RoutineReceiverService
+	case routineReceive = "a226b9d9-95f2-4045-ab7c-08a4c738b701"
 	
 	var uid: CBUUID {
 		return CBUUID(string: self.rawValue)
@@ -31,6 +34,7 @@ enum PiChannel: String {
 enum PiService: String {
 	case pingpong = "8e66b5c3-9851-4a29-8252-295ad263f4b0"
 	case sysinfo = "ff51b30e-d7e2-4d93-8842-a7c4a57dfb00"
+	case routineReceive = "a226b9d9-95f2-4045-ab7c-08a4c738b700"
 	
 	var channels: [PiChannel] {
 		switch self {
@@ -38,6 +42,8 @@ enum PiService: String {
 			return [.pingpong]
 		case .sysinfo:
 			return [.memory, .uptime, .loadaverage]
+		case .routineReceive:
+			return [.routineReceive]
 		}
 	}
 	var uid: CBUUID {
@@ -170,6 +176,7 @@ extension PiBluetoothAPI {
 				guard let d = cbdevice, err == nil else { return }
 				if d.id == device.id {
 					self.knownPeripherals[d.id] = d
+					print(d)
 					found = true
 					self.stopSearching()
 					completion?(d, nil)
@@ -259,6 +266,7 @@ extension PiBluetoothAPI {
 				return
 			}
 			print("Found peripheral \(peripheral.name)")
+			print(peripheral.peripheral)
 			
 			if peripheral.peripheral.state != .connected {
 				self.connectTo(peripheral: peripheral) { (err) in
@@ -266,6 +274,7 @@ extension PiBluetoothAPI {
 						completion?(nil, err)
 						return
 					}
+					self.connectedDevices[peripheral.id] = device
 					
 					getServiceAndChannel(peripheral: peripheral)
 				}

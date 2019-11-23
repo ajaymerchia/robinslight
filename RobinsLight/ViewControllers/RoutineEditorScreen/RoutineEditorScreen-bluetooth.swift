@@ -42,7 +42,7 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 				return
 			}
 			
-			PiBluetoothAPI.shared.write(data: track, device: device, service: .pingpong, channel: .pingpong) { (err) in
+			PiBluetoothAPI.shared.write(data: track, device: device, service: .routineReceive, channel: .routineReceive) { (err) in
 				if err == nil {
 					self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "File sent to device.")
 				} else {

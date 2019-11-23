@@ -13,7 +13,7 @@ import ARMDevSuite
 import AVFoundation
 
 class RoutineEditorScreen: RobinVC {
-    
+	
 	static var secondsToPixels: CGFloat = 10
 	static var secondsMajorMarker: CGFloat = 5
 	
@@ -33,13 +33,13 @@ class RoutineEditorScreen: RobinVC {
 		}
 	}
 	
-    // Data
+	// Data
 	var isPlaying: Bool = false
 	var routine: Routine!
 	var player: AVAudioPlayer?
 	var playerTimer: Timer?
 	var bufferTimer: Timer?
-		
+	
 	var timeBreaks: [TimeInterval] {
 		var breaks: [TimeInterval] = [0]
 		
@@ -57,33 +57,34 @@ class RoutineEditorScreen: RobinVC {
 		return timeBreaks[c] + (self.player?.currentTime ?? 0)
 	}
 	var pendingOffset: CGFloat = 0
-    
-    // System
-    
 	
-    // UI Components
+	// System
+	
+	
+	// UI Components
 	var play: UIBarButtonItem!
 	var pause: UIBarButtonItem!
 	var table: UITableView!
 	var trackIndicator: UILabel!
 	var playTrack: UIView!
 	var playHead: UIView!
-		var playHeadX: NSLayoutConstraint!
-		var playHeadDragger: UIPanGestureRecognizer!
+	var playHeadX: NSLayoutConstraint!
+	var playHeadDragger: UIPanGestureRecognizer!
 	var scrollers: [UIScrollView] {
 		return self.table.visibleCells.compactMap({($0 as? TimelineCell)?.scrollView})
 	}
 	
 	var persistentTrackCell = TimelineCell()
-		var persistentMusicBar: UIScrollView!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+	var persistentMusicBar: UIScrollView!
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		// Do any additional setup after loading the view.
+		PiBluetoothAPI.shared.delegate = self
 		initUI()
-        
-    }
-    
+		
+	}
+	
 }

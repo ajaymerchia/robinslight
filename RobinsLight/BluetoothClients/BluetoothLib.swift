@@ -207,7 +207,8 @@ extension BluetoothLib {
 		}
 		peripheral.peripheral.delegate = self
 		self.pendingCharacteristics[peripheral.peripheral.identifier] = (channel.uid, completion)
-		peripheral.peripheral.discoverCharacteristics([channel.uid], for: service)
+//		peripheral.peripheral.discoverCharacteristics([channel.uid], for: service)
+		peripheral.peripheral.discoverCharacteristics(nil, for: service)
 		
 	}
 	
