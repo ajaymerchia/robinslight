@@ -25,16 +25,22 @@ enum PiChannel: String {
 	
 	// Channels for RoutineReceiverService
 	case routineReceive = "a226b9d9-95f2-4045-ab7c-08a4c738b701"
+	case player = "a226b9d9-95f2-4045-ab7c-08a4c738b702"
 	
 	var uid: CBUUID {
 		return CBUUID(string: self.rawValue)
 	}
 }
 
+enum PlayerCommand: String {
+	case play = "PLAY"
+	case start = "START"
+}
+
 enum PiService: String {
 	case pingpong = "8e66b5c3-9851-4a29-8252-295ad263f4b0"
 	case sysinfo = "ff51b30e-d7e2-4d93-8842-a7c4a57dfb00"
-	case routineReceive = "a226b9d9-95f2-4045-ab7c-08a4c738b700"
+	case routine = "a226b9d9-95f2-4045-ab7c-08a4c738b700"
 	
 	var channels: [PiChannel] {
 		switch self {
@@ -42,8 +48,8 @@ enum PiService: String {
 			return [.pingpong]
 		case .sysinfo:
 			return [.memory, .uptime, .loadaverage]
-		case .routineReceive:
-			return [.routineReceive]
+		case .routine:
+			return [.routineReceive, .player]
 		}
 	}
 	var uid: CBUUID {
@@ -239,7 +245,7 @@ extension PiBluetoothAPI {
 				
 				print("Found service \(service)")
 				
-				BluetoothLib.shared.find(channel: .pingpong, on: cbservice, on: peripheral) { (characteristic, err) in
+				BluetoothLib.shared.find(channel: channel, on: cbservice, on: peripheral) { (characteristic, err) in
 					guard let characteristic = characteristic, err == nil else {
 						completion?(nil, err)
 						return

@@ -189,16 +189,16 @@ extension EventEditScreen {
 		
 		
 	}
-	@objc func sUpdate() {
-		getTimeInterval { (s, e) in
+	@objc func sUpdate(_ sender: UIButton) {
+		getTimeInterval(prefill: self.proposedEvent.timelineStart) { (s, e) in
 			guard let s = s, e == nil else { self.alerts.displayAlert(titled: .err, withDetail: e, completion: nil); return }
 			self.proposedEvent.timelineStart = s
 			
 			self.populateViews()
 		}
 	}
-	@objc func eUpdate() {
-		getTimeInterval { (end, e) in
+	@objc func eUpdate(_ sender: UIButton) {
+		getTimeInterval(prefill: self.proposedEvent.timelineEnd) { (end, e) in
 			guard let end = end, e == nil else { self.alerts.displayAlert(titled: .err, withDetail: e, completion: nil); return }
 			self.proposedEvent.timelineEnd = end
 			
@@ -237,8 +237,11 @@ extension EventEditScreen {
 	
 	
 	
-	func getTimeInterval(completion: Response<TimeInterval>?) {
-		self.alerts.getTextInput(withTitle: "Please enter a timestamp.", andHelp: "Please format as mm:ss.SSS", andPlaceholder: "01:23.456", completion: { (s) in
+	func getTimeInterval(prefill: TimeInterval?, completion: Response<TimeInterval>?) {
+		var prefillText: String? = prefill?.clockStyleMilli
+
+		
+		self.alerts.getTextInput(withTitle: "Please enter a timestamp.", andHelp: "Please format as mm:ss.SSS", andPlaceholder: prefillText ?? "01:23.456", placeholderAsText: prefillText != nil, completion: { (s) in
 			
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "mm:ss.SSS"

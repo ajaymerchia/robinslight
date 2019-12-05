@@ -53,8 +53,8 @@ class BluetoothLib: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 	var connectedPeripherals = [UUID: CBPeripheral]()
 	
 	// Discovery
-	var pendingServices = [UUID: (CBUUID, Response<CBService>?)]()
-	var pendingCharacteristics = [UUID: (CBUUID, Response<CBCharacteristic>?)]()
+	var pendingServices = [UUID: (String, CBUUID, Response<CBService>?)]()
+	var pendingCharacteristics = [UUID: (String, CBUUID, Response<CBCharacteristic>?)]()
 	
 	// Communication
 	var pendingWriters = [CBUUID: ErrorReturn?]()
@@ -160,6 +160,8 @@ extension BluetoothLib {
 		}
 	}
 	
+	
+	
 	func read(from peripheral: CBNamedPeripheral, from channel: CBCharacteristic, completion: Response<String>?) {
 		
 		
@@ -189,26 +191,52 @@ extension BluetoothLib {
 
 // MARK: Service Discovery
 extension BluetoothLib {
-	func find(service: PiService, on peripheral: CBNamedPeripheral, completion: Response<CBService>?) {
+	func find(service: PiService, on peripheral: CBNamedPeripheral, timeOut: TimeInterval = 10, completion: Response<CBService>?) {
 		if let cached = peripheral.peripheral.services?.first(where: {$0.uuid == service.uid}) {
 			completion?(cached, nil)
 			return
 		}
 		peripheral.peripheral.delegate = self
-		self.pendingServices[peripheral.peripheral.identifier] = (service.uid, completion)
+		
+		let requestID = UUID().uuidString
+		self.pendingServices[peripheral.peripheral.identifier] = (requestID, service.uid, completion)
 		peripheral.peripheral.discoverServices([service.uid])
+		
+		Timer.scheduledTimer(withTimeInterval: timeOut, repeats: false) { (_) in
+			if let hdlr = self.pendingServices[peripheral.peripheral.identifier] {
+				guard hdlr.0 == requestID else {
+					return
+				}
+				self.pendingServices.removeValue(forKey: peripheral.peripheral.identifier)
+				hdlr.2?(nil, "Request timed out. Failed to find service.")
+				
+			}
+		}
 	}
 	
-	func find(channel: PiChannel, on service: CBService, on peripheral: CBNamedPeripheral, completion: Response<CBCharacteristic>?) {
+	func find(channel: PiChannel, on service: CBService, on peripheral: CBNamedPeripheral, timeOut: TimeInterval = 10, completion: Response<CBCharacteristic>?) {
 		
 		if let cached = service.characteristics?.first(where: {$0.uuid == channel.uid}) {
 			completion?(cached, nil)
 			return
 		}
 		peripheral.peripheral.delegate = self
-		self.pendingCharacteristics[peripheral.peripheral.identifier] = (channel.uid, completion)
-//		peripheral.peripheral.discoverCharacteristics([channel.uid], for: service)
-		peripheral.peripheral.discoverCharacteristics(nil, for: service)
+		
+		let requestID = UUID().uuidString
+		self.pendingCharacteristics[peripheral.peripheral.identifier] = (requestID, channel.uid, completion)
+		peripheral.peripheral.discoverCharacteristics([channel.uid], for: service)
+//		peripheral.peripheral.discoverCharacteristics(nil, for: service)
+		
+		Timer.scheduledTimer(withTimeInterval: timeOut, repeats: false) { (_) in
+			if let hdlr = self.pendingCharacteristics[peripheral.peripheral.identifier] {
+				guard hdlr.0 == requestID else {
+					return
+				}
+				self.pendingCharacteristics.removeValue(forKey: peripheral.peripheral.identifier)
+				hdlr.2?(nil, "Request timed out. Failed to find service.")
+				
+			}
+		}
 		
 	}
 	
@@ -216,13 +244,13 @@ extension BluetoothLib {
 		let handler = self.pendingServices.removeValue(forKey: peripheral.identifier)
 
 		guard let services = peripheral.services, error == nil else {
-			handler?.1?(nil, error?.localizedDescription)
+			handler?.2?(nil, error?.localizedDescription)
 			return
 		}
 		
 		for service in services {
-			if service.uuid == handler?.0 {
-				handler?.1?(service, nil)
+			if service.uuid == handler?.1 {
+				handler?.2?(service, nil)
 			}
 		}
 	}
@@ -231,13 +259,13 @@ extension BluetoothLib {
 		let handler = self.pendingCharacteristics.removeValue(forKey: peripheral.identifier)
 		
 		guard let characteristics = service.characteristics, error == nil else {
-			handler?.1?(nil, error?.localizedDescription)
+			handler?.2?(nil, error?.localizedDescription)
 			return
 		}
 		
 		for crcrtr in characteristics {
-			if crcrtr.uuid == handler?.0 {
-				handler?.1?(crcrtr, nil)
+			if crcrtr.uuid == handler?.1 {
+				handler?.2?(crcrtr, nil)
 			}
 		}
 		

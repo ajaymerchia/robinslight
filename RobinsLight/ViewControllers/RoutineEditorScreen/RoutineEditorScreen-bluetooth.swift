@@ -26,7 +26,11 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 			}),
 			ActionConfig(title: "Upload Routine", style: .default, callback: {
 				self.uploadRoutine(forDevice: device)
+			}),
+			ActionConfig(title: "Test Run on Device", style: .default, callback: {
+				self.playRoutine(forDevice: device)
 			})
+			
 			
 		])
 		
@@ -34,6 +38,12 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 		
 	}
 	
+	func playRoutine(forDevice device: Device) {
+		PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(Date().timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
+			
+		}
+		self.startRunTime()
+	}
 	func uploadRoutine(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Uploading Routine")
 		TrackExportManager.exportTrackToString(for: device, in: self.routine) { (track, err) in
@@ -42,7 +52,7 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 				return
 			}
 			
-			PiBluetoothAPI.shared.write(data: track, device: device, service: .routineReceive, channel: .routineReceive) { (err) in
+			PiBluetoothAPI.shared.write(data: track, device: device, service: .routine, channel: .routineReceive) { (err) in
 				if err == nil {
 					self.alerts.triggerHudSuccess(withHeader: "Success", andDetail: "File sent to device.")
 				} else {
@@ -52,7 +62,6 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 			
 		}
 	}
-	
 	func checkConnection(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Verifying")
 		PiBluetoothAPI.shared.validateCompatibility(for: device) { (err) in

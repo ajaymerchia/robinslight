@@ -37,8 +37,13 @@ extension AddDeviceScreen {
 		
 		let navItem = UINavigationItem(title: "Add a Stage Asset")
 		navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(searchForBluetoothReceivers))
+		navItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissSelf))
+		
 		
 		navbar.setItems([navItem], animated: true)
+	}
+	@objc func dismissSelf() {
+		self.dismiss(animated: true, completion: nil)
 	}
 	func initTable() {
 		self.table = UITableView(); view.addSubview(table)

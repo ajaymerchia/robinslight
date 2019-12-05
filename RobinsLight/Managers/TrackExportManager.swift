@@ -20,7 +20,7 @@ class TrackExportManager {
 		
 		if let first = deviceEvents.first, first.timelineStart != 0 {
 			let buffer = Event(name: "buffer", type: .off, start: 0, end: first.timelineStart)
-			exportFile += arduinoFormatFor(e: buffer)
+			exportFile += rlMinFormatFor(e: buffer)
 		}
 		
 		for idx in (0..<deviceEvents.count) {
@@ -28,7 +28,7 @@ class TrackExportManager {
 			let curr = deviceEvents[idx]
 			
 			func writeCurrent() {
-				exportFile += arduinoFormatFor(e: curr)
+				exportFile += rlMinFormatFor(e: curr)
 			}
 			
 			if idx < deviceEvents.count - 1 {
@@ -45,7 +45,7 @@ class TrackExportManager {
 					// add to the xport file string
 					writeCurrent()
 					let buffer = Event(name: "buffer", type: .off, start: curr.timelineEnd, end: next.timelineStart)
-					exportFile += arduinoFormatFor(e: buffer)
+					exportFile += rlMinFormatFor(e: buffer)
 
 				}
 			} else {
@@ -54,7 +54,7 @@ class TrackExportManager {
 		}
 		
 		// add the kill sequence
-		exportFile += "\(Int(deviceEvents.last!.timelineEnd * 1000)):kill:-1:-1:-1:"
+		exportFile += "\(Int(deviceEvents.last!.timelineEnd * 1000)):kill:0:0::"
 		
 		completion?(exportFile, nil)
 	}
@@ -81,20 +81,23 @@ class TrackExportManager {
 	}
 	
 	
-	static func arduinoFormatFor(e: Event) -> String {
+	static func rlMinFormatFor(e: Event) -> String {
 		let timestamp = "\(Int(e.timelineStart * 1000))"
 		let action = e.type.arduinoDescription
 		let duration = "\(Int(e.timelineDuration * 1000))"
-		let frequency = (e.type == .strobe ? "\(Int(e.frequency!))" : "-1")
+		let frequency = (e.type == .strobe ? "\(Int(e.frequency!))" : "0")
 		var colors = ""
 		if let oneColor = e.color {
 			guard let radix = oneColor.decimalRadix else {
 				fatalError("couldn't convert color to decimal radix")
 			}
-			colors = "\(radix)"
+			colors = "\(Int(radix))"
 		} else if let colorArr = e.colors {
 			let arr = colorArr.compactMap({ "\(Int($0.decimalRadix!))" })
 			colors = arr.joined(separator: ",")
+		}
+		if colors.count > 0 {
+			colors = "\(colors)," // terminating comma for raspberry pi format
 		}
 		
 		return "\([timestamp, action, duration, frequency, colors].joined(separator: ":")):\n"

@@ -12,7 +12,7 @@ import UIKit
 import ARMDevSuite
 
 extension RoutineManagerScreen {
-    func getData() {
+	func getData() {
 		DataStack.list(type: Routine.self) { (routineIDs, err) in
 			guard let ids = routineIDs else {
 				self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
@@ -32,7 +32,7 @@ extension RoutineManagerScreen {
 				self.table.reloadData()
 			}
 		}
-    }
+	}
 	
 	@objc func addNewSet() {
 		self.alerts.getTextInput(withTitle: "Create New Set", andHelp: "What is the name of this new set?", andPlaceholder: "A11 @ Legends", completion: { (setName) in
@@ -57,6 +57,6 @@ extension RoutineManagerScreen {
 			
 		})
 	}
-
-
+	
+	
 }

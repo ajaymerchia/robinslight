@@ -12,22 +12,24 @@ import UIKit
 import ARMDevSuite
 
 class RoutineManagerScreen: RobinVC {
-    
-    // Data
+	
+	// Data
 	static var allRoutines = [Routine]()
-    
-    // System
+	
+	// System
 	var table: UITableView!
-    // UI Components
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+	// UI Components
+	
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		// Do any additional setup after loading the view.
 		initUI()
-		getData()
-        
-    }
-    
+		self.getData()
+		
+
+		
+	}
+	
 }
