@@ -15,6 +15,8 @@ target 'RobinsLight' do
 	pod 'IQKeyboardManager', :inhibit_warnings => true
 
 	pod 'FlexColorPicker'
+	
+	pod 'Firebase'
 
 
 end

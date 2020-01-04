@@ -82,20 +82,27 @@ class BluetoothLib: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
 	}
 }
 
+var allDiscovered = [String]()
+
 // MARK: Discover Broadcast
 extension BluetoothLib {
 	func pipeDevices(for clientID: String, onDevice: Response<CBNamedPeripheral>?) {
 		self.discoverPipes[clientID] = onDevice
 		
-		if !self.manager.isScanning {
+		func scan() {
 			self.manager.scanForPeripherals(withServices: nil)
+		}
+		
+		if !self.manager.isScanning {
+			scan()
+			
 			Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (t) in
 				guard self.manager.state != .poweredOn else {
-					self.manager.scanForPeripherals(withServices: nil)
+					scan()
 					t.invalidate()
 					return
 				}
-				self.manager.scanForPeripherals(withServices: nil)
+				scan()
 
 			}
 
@@ -108,6 +115,11 @@ extension BluetoothLib {
 		}
 	}
 	func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+		if !allDiscovered.contains(peripheral.identifier.uuidString) {
+			print("Discovered New Peripheral", peripheral.identifier.uuidString)
+			allDiscovered.append(peripheral.identifier.uuidString)
+			
+		}
 		if let name = peripheral.name {
 			for client in self.discoverPipes {
 				client.value?(CBNamedPeripheral(peripheral: peripheral, name: name), nil)

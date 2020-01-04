@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManager
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		IQKeyboardManager.shared().isEnabled = true
 		
 		print(Date().timeIntervalSince1970)
+		FirebaseApp.configure()
 		
 		return true
 	}

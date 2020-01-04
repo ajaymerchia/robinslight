@@ -39,10 +39,20 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 	}
 	
 	func playRoutine(forDevice device: Device) {
-		PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(Date().timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
+		self.alerts.getTextInput(withTitle: "Manual delay?", andHelp: nil, andPlaceholder: "ms", completion: { (str) in
+			PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(Date().timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
+				if let delay = TimeInterval(str) {
+					Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (_) in
+						self.startRunTime()
+					}
+				} else {
+					self.startRunTime()
+					
+				}
+			}
 			
-		}
-		self.startRunTime()
+		})
+		
 	}
 	func uploadRoutine(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Uploading Routine")
