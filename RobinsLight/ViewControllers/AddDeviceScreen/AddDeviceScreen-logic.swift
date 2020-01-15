@@ -100,6 +100,33 @@ extension AddDeviceScreen: PiBluetoothAPIDelegate {
 		self.delegate?.addDeviceScreen(self, didSelect: device)
 		self.dismiss(animated: true, completion: nil)
 	}
+	
+	@objc func addFakeDevice() {
+		self.alerts.getTextInput(withTitle: "Add A Fake Device", andHelp: "You can associate this with an actual device later.", andPlaceholder: "Device Name", placeholderAsText: false, completion: { (fakeName) in
+			
+			let n = fakeName.trimmingCharacters(in: .whitespacesAndNewlines)
+			guard n != "" else {
+				self.alerts.displayAlert(titled: .err, withDetail: "Invalid name", completion: nil)
+				return
+			}
+			
+			let d = Device(fakeName: n)
+			RobinCache.records(for: Device.self).store(d) { (err) in
+				guard err == nil else {
+					self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+					return
+				}
+				
+				self.delegate?.addDeviceScreen(self, didSelect: d)
+				self.dismiss(animated: true, completion: nil)
+
+			}
+			
+			
+		}) {
+			return
+		}
+	}
 
 
 }

@@ -33,6 +33,7 @@ class DataStack {
 
 	private static func target<T: DataBlob>(entity: T.Type, id: String? = nil) -> URL {
 		var entityFolder = documentsURL.appendingPathComponent(entity.dbRef, isDirectory: true)
+		print(entityFolder)
 		if let id = id {
 			return entityFolder.appendingPathComponent(T.genFileName(for: id))
 		}
@@ -45,6 +46,11 @@ class DataStack {
 	static func list<T: DataBlob>(type: T.Type, completion: Response<[String]>?) {
 		do {
 			let entityFolder = target(entity: type)
+			
+			if !FileManager.default.fileExists(atPath: entityFolder.absoluteString) {
+				try! FileManager.default.createDirectory(at: entityFolder, withIntermediateDirectories: true, attributes: nil)
+			}
+			
 			let entities = try FileManager.default.contentsOfDirectory(at: entityFolder, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
 			let childPaths = entities.map({$0.deletingPathExtension().lastPathComponent})
 			completion?(childPaths, nil)
@@ -68,6 +74,7 @@ class DataStack {
 		} catch {
 			// delete the corrupted file
 //			delete(type: type, id: id, completion: nil)
+			print("Corrupted File", error.localizedDescription, type.dbRef, id)
 			completion?(nil, error.localizedDescription)
 		}
 

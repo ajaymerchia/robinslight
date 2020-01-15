@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreBluetooth
+import ARMDevSuite
 
 class Device: DataBlob {
 	static var dbRef: String = "devices"
@@ -18,26 +19,20 @@ class Device: DataBlob {
 	/// The Peripheral ID of the device
 	var id: String
 	var commonName: String
+	var isReal: Bool
 	
 //	var rwChannel: CBCharacteristic
+	
+	init(fakeName: String) {
+		self.commonName = fakeName
+		self.id = LogicSuite.uuid()
+		self.isReal = false
+	}
 	
 	init(id: String, commonName: String) {
 		self.id = id
 		self.commonName = commonName
+		self.isReal = true
 	}
 	
-}
-
-extension Device {
-	static let names = [
-		"Ajay's Box",
-		"Abhinav's Box",
-		"Shreyas' Box",
-		"Kush's Box",
-		"Yash's Box",
-		"Richa's Box",
-		"Divya's Box"
-		
-	]
-	static let sampleDevices = names.map({Device(id: String($0.sha256().prefix(12)), commonName: $0)})
 }

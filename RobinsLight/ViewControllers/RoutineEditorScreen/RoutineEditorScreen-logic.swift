@@ -130,10 +130,15 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 		guard let audioFileURL = urls.first else { processNewSong(song: nil, err: "no items selected"); return }
 		do {
 			let audioFile = try AVAudioFile(forReading: audioFileURL)
+			// Store the audio file locally so it can be used after quitting.
+			
+			let trueURL = try SongFileStore.shared.storeFileFrom(url: audioFileURL)
+			
+			
 			let duration = TimeInterval(Int(audioFile.length)/Song.defaultSampleRate)
 			
 			let name = audioFileURL.deletingPathExtension().lastPathComponent
-			nameSegment(id: UUID().uuidString, duration: duration, url: audioFileURL, proposedName: name)
+			nameSegment(id: UUID().uuidString, duration: duration, url: trueURL, proposedName: name)
 		} catch {
 			processNewSong(song: nil, err: error.localizedDescription)
 		}

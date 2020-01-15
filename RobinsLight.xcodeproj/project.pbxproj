@@ -22,6 +22,7 @@
 		B71DCED6236444C000D54AF1 /* RobinsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED5236444C000D54AF1 /* RobinsCache.swift */; };
 		B71DCED8236444FD00D54AF1 /* RoutineManagerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */; };
 		B75CEAB42387718100C3E4BA /* PiBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75CEAB32387718100C3E4BA /* PiBluetooth.swift */; };
+		B75E5BEF23CFBCED0078AFFD /* SongFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75E5BEE23CFBCED0078AFFD /* SongFileStore.swift */; };
 		B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A2236446DA00D3A9DF /* RobinVC.swift */; };
 		B78848A5236446F800D3A9DF /* RoutineManagerScreen-initUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */; };
 		B78848A72364472E00D3A9DF /* RoutineManagerScreen-logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */; };
@@ -75,6 +76,7 @@
 		B71DCED5236444C000D54AF1 /* RobinsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinsCache.swift; sourceTree = "<group>"; };
 		B71DCED7236444FD00D54AF1 /* RoutineManagerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineManagerScreen.swift; sourceTree = "<group>"; };
 		B75CEAB32387718100C3E4BA /* PiBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiBluetooth.swift; sourceTree = "<group>"; };
+		B75E5BEE23CFBCED0078AFFD /* SongFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongFileStore.swift; sourceTree = "<group>"; };
 		B78848A2236446DA00D3A9DF /* RobinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobinVC.swift; sourceTree = "<group>"; };
 		B78848A4236446F800D3A9DF /* RoutineManagerScreen-initUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-initUI.swift"; sourceTree = "<group>"; };
 		B78848A62364472E00D3A9DF /* RoutineManagerScreen-logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoutineManagerScreen-logic.swift"; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				B71DCED12364444A00D54AF1 /* DataStack.swift */,
 				B71DCED5236444C000D54AF1 /* RobinsCache.swift */,
+				B75E5BEE23CFBCED0078AFFD /* SongFileStore.swift */,
 				B78848B223644C6200D3A9DF /* RoutineManager.swift */,
 				B78848E32365F54900D3A9DF /* TrackExportManager.swift */,
 			);
@@ -418,6 +421,7 @@
 				B71DCEB923640E0500D54AF1 /* BluetoothViewController.swift in Sources */,
 				B78848D92365534800D3A9DF /* Event.swift in Sources */,
 				B71DCEB523640E0500D54AF1 /* AppDelegate.swift in Sources */,
+				B75E5BEF23CFBCED0078AFFD /* SongFileStore.swift in Sources */,
 				B78848E42365F54900D3A9DF /* TrackExportManager.swift in Sources */,
 				B78848A3236446DA00D3A9DF /* RobinVC.swift in Sources */,
 				B70B80E523769EF10083A183 /* RoutineEditorScreen-bluetooth.swift in Sources */,

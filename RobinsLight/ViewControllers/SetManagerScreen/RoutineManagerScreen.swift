@@ -26,10 +26,20 @@ class RoutineManagerScreen: RobinVC {
 		
 		// Do any additional setup after loading the view.
 		initUI()
-		self.getData()
 		
 
 		
 	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		
+		// make Routine & Devices Blob if it doesn't exist.
+//		RobinCache.records(for: Routine.self).store(<#T##obj: Routine##Routine#>, completion: <#T##ErrorReturn?##ErrorReturn?##(RobinError?) -> ()#>)
+		
+		self.getData()
+
+	}
+	
+	
 	
 }

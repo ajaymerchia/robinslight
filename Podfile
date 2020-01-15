@@ -16,7 +16,9 @@ target 'RobinsLight' do
 
 	pod 'FlexColorPicker'
 	
-	pod 'Firebase'
+	pod 'FirebaseCore'
+	pod 'Firebase/Database'
+	pod 'Firebase/Auth'
 
 
 end

@@ -13,6 +13,7 @@ import ARMDevSuite
 
 extension RoutineManagerScreen {
 	func getData() {
+		RoutineManagerScreen.allRoutines = []
 		DataStack.list(type: Routine.self) { (routineIDs, err) in
 			guard let ids = routineIDs else {
 				self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)

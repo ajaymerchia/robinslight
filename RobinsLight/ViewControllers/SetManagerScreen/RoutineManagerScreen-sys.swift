@@ -17,9 +17,7 @@ extension RoutineManagerScreen {
 
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-
-    }
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         

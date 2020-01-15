@@ -36,12 +36,16 @@ extension AddDeviceScreen {
 		navbar.heightAnchor.constraint(equalToConstant: 30).isActive = true
 		
 		let navItem = UINavigationItem(title: "Add a Stage Asset")
-		navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(searchForBluetoothReceivers))
+		navItem.rightBarButtonItems = [
+			UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(searchForBluetoothReceivers)),
+			UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFakeDevice))
+		]
 		navItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissSelf))
 		
 		
 		navbar.setItems([navItem], animated: true)
 	}
+	
 	@objc func dismissSelf() {
 		self.dismiss(animated: true, completion: nil)
 	}
