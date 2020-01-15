@@ -44,12 +44,25 @@ extension RoutineEditorScreen {
 	func setNav() {
 		let hasSongs = self.routine.songs.count > 0
 		self.navigationItem.rightBarButtonItems = [
-			UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportDeviceTrack)),
+			UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: self, action: #selector(showMisc)),
 			UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewAsset)),
-			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "plus.magnifyingglass"), style: .done, target: self, action: #selector(zoomIn)) : nil,
-			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "minus.magnifyingglass"), style: .done, target: self, action: #selector(zoomOut)) : nil,
+			hasSongs ? UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .done, target: self, action: #selector(zoomFollowup)) : nil,
 			hasSongs ? (self.isPlaying ? self.pause : self.play) : nil
 		].compactMap({$0})
+	}
+	@objc func zoomFollowup(sender: UIBarButtonItem) {
+		let vc = UIAlertController(title: "Zoom", message: nil, preferredStyle: .actionSheet)
+		
+		vc.popoverPresentationController?.barButtonItem = sender
+		
+		vc.addAction(UIAlertAction(title: "Zoom In", style: .default, handler: { (_) in
+			self.zoomIn()
+		}))
+		vc.addAction(UIAlertAction(title: "Zoom Out", style: .default, handler: { (_) in
+			self.zoomOut()
+		}))
+		
+		self.present(vc, animated: true, completion: nil)
 	}
 	func initTable() {
 		self.table = UITableView(); view.addSubview(table)

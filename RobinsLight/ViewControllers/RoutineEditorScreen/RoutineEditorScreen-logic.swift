@@ -23,6 +23,7 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 	
 	
 	@objc func addNewAsset() {
+		self.addDelegatePurpose = .new
 		self.performSegue(withIdentifier: "editor2addDevice", sender: nil)
 	}
 	
@@ -131,7 +132,6 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 		do {
 			let audioFile = try AVAudioFile(forReading: audioFileURL)
 			// Store the audio file locally so it can be used after quitting.
-			
 			let trueURL = try SongFileStore.shared.storeFileFrom(url: audioFileURL)
 			
 			
@@ -201,40 +201,5 @@ extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPicker
 
 
 extension RoutineEditorScreen {
-	@objc func exportDeviceTrack() {
-		let devices = self.routine.deviceIDs
-		
-		var devicesLoaded = [Device]()
-		
-		let deviceFetcher = DispatchGroup(vals: devices) { (dID, g) in
-			RobinCache.records(for: Device.self).get(id: dID) { (d, _) in
-				if let d = d {
-					devicesLoaded.append(d)
-				}
-				g.leave()
-				
-			}
-		}
-		
-		deviceFetcher.notify(queue: .main) {
-			let devicePickerVC = UIAlertController(title: "Which device would you like to send it configuration file?", message: nil, preferredStyle: .alert)
-			
-			
-			devicesLoaded.forEach { (d) in
-				devicePickerVC.addAction(UIAlertAction(title: d.commonName, style: .default, handler: { (_) in
-					TrackExportManager.exportTrackToURL(for: d, in: self.routine) { (url, _) in
-						let share = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-						self.present(share, animated: true, completion: nil)
-					}
-				}))
-			}
-			
-			devicePickerVC.addAction(UIAlertAction(title: "Nevermind", style: .cancel, handler: nil))
-			self.present(devicePickerVC, animated: true, completion: nil)
-			
-		}
-		
-		
-		
-	}
+	
 }

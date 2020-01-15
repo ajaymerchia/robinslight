@@ -17,14 +17,47 @@ extension RoutineEditorScreen: AddDeviceScreenDelegate {
 	}
 	
 	func addDeviceScreen(_ addDeviceScreen: AddDeviceScreen, didSelect device: Device) {
-		self.routine.deviceIDs.append(device.id)
-		self.routine.deviceTracks[device.id] = []
 		
-		RobinCache.records(for: Routine.self).store(self.routine) { (_) in
-			self.table.reloadSections(IndexSet(integer: 1), with: .fade)
+		switch self.addDelegatePurpose {
+		case .new:
+			self.routine.deviceIDs.append(device.id)
+			self.routine.deviceTracks[device.id] = []
+			
+			RobinCache.records(for: Routine.self).store(self.routine) { (_) in
+				self.table.reloadSections(IndexSet(integer: 1), with: .fade)
+			}
+		case .attach(let oldDevice):
+			guard let oldIdx = self.routine.deviceIDs.firstIndex(of: oldDevice.id) else {
+				self.alerts.displayAlert(titled: .err, withDetail: "Unable to add device. Old copy no longer exists in this routine", completion: nil)
+				return
+			}
+			
+			device.commonName = oldDevice.commonName
+			
+			self.routine.deviceIDs.remove(at: oldIdx)
+			self.routine.deviceIDs.insert(device.id, at: oldIdx)
+			
+			RobinCache.records(for: Routine.self).store(self.routine) { (err) in
+				RobinCache.records(for: Device.self).store(device) { (err2) in
+					self.table.reloadSections(IndexSet(integer: 1), with: .fade)
+
+					guard err == nil, err2 == nil else {
+						self.alerts.displayAlert(titled: .err, withDetail: err ?? err2 ?? "Something went wrong when updating the device", completion: nil)
+						return
+					}
+					
+
+				}
+			}
+			
+			
+		default:
+			return
 		}
+
 		
-		PiBluetoothAPI.shared.delegate = self
+		
+		
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +65,7 @@ extension RoutineEditorScreen: AddDeviceScreenDelegate {
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
-		
+		PiBluetoothAPI.shared.delegate = self
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {

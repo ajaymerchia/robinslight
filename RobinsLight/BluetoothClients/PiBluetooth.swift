@@ -35,6 +35,7 @@ enum PiChannel: String {
 enum PlayerCommand: String {
 	case play = "PLAY"
 	case start = "START"
+	case stop = "STOP"
 }
 
 enum PiService: String {

@@ -59,7 +59,14 @@ class RoutineEditorScreen: RobinVC {
 	var pendingOffset: CGFloat = 0
 	
 	// System
+	enum AddPurpose {
+		case new
+		case attach(Device)
+	}
+	var addDelegatePurpose: AddPurpose!
 	
+	var isShowingPlayer: Bool = false
+	var masterDevices: [Device] = []
 	
 	// UI Components
 	var play: UIBarButtonItem!
@@ -76,6 +83,8 @@ class RoutineEditorScreen: RobinVC {
 	
 	var persistentTrackCell = TimelineCell()
 	var persistentMusicBar: UIScrollView!
+	
+	
 	
 	
 	override func viewDidLoad() {

@@ -17,7 +17,7 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 	}
 	
 	func showOptions(forDevice device: Device) {
-		self.alerts.showActionSheet(withTitle: device.commonName, andDetail: device.id, configs: [
+		var configs = [
 			ActionConfig(title: "Check Connection", style: .default, callback: {
 				self.checkConnection(forDevice: device)
 			}),
@@ -29,30 +29,52 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 			}),
 			ActionConfig(title: "Test Run on Device", style: .default, callback: {
 				self.playRoutine(forDevice: device)
+				self.startRunTime()
 			})
-			
-			
-		])
+		]
+		
+		if !device.isReal {
+			configs.append(ActionConfig(title: "Attach to Pi", style: .default, callback: {
+				self.attachPiToFake(forDevice: device)
+				return
+			}))
+		}
+		
+		
+		
+		self.alerts.showActionSheet(withTitle: device.commonName, andDetail: device.id, configs: configs)
 		
 		
 		
 	}
 	
-	func playRoutine(forDevice device: Device) {
-		self.alerts.getTextInput(withTitle: "Manual delay?", andHelp: nil, andPlaceholder: "ms", completion: { (str) in
-			PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(Date().timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
-				if let delay = TimeInterval(str) {
-					Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (_) in
-						self.startRunTime()
-					}
-				} else {
-					self.startRunTime()
-					
-				}
-			}
-			
-		})
-		
+	func attachPiToFake(forDevice device: Device) {
+		self.addDelegatePurpose = .attach(device)
+		self.performSegue(withIdentifier: "editor2addDevice", sender: nil)
+	}
+	
+	func playRoutine(forDevice device: Device, refDate date: Date = Date()) {
+		//		self.alerts.getTextInput(withTitle: "Manual delay?", andHelp: nil, andPlaceholder: "ms", completion: { (str) in
+		//			PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(Date().timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
+		//				if let delay = TimeInterval(str) {
+		//					Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { (_) in
+		//						self.startRunTime()
+		//					}
+		//				} else {
+		//					self.startRunTime()
+		//
+		//				}
+		//			}
+		//
+		//		})
+		PiBluetoothAPI.shared.write(data: "\(PlayerCommand.start.rawValue):\(date.timeIntervalSince1970)", device: device, service: .routine, channel: .player) { (err) in
+			self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+		}
+	}
+	func stopRoutine(forDevice device: Device) {
+		PiBluetoothAPI.shared.write(data: "\(PlayerCommand.stop.rawValue)", device: device, service: .routine, channel: .player) { (err) in
+			self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+		}
 	}
 	func uploadRoutine(forDevice device: Device) {
 		self.alerts.startProgressHud(withTitle: "Uploading Routine")

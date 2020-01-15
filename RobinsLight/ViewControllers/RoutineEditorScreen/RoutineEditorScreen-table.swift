@@ -100,8 +100,12 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		label.textColor = .robinBlack
 		label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
 		
+		let container = UIView()
+		container.backgroundColor = .white
+		container.addSubview(view)
+		view.pinTo(container)
 		
-		return view
+		return container
 		
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,7 +136,9 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 			cell.scrollView?.delegate = self
 			
 			RobinCache.records(for: Device.self).get(id: id) { (d, _) in
-				cell.trackTitle = d?.commonName
+				guard let d = d else { return }
+				
+				cell.trackTitle = d.commonName + (d.isReal ? "" : " [Fake]")
 				cell.additionalInfo = id
 				
 			}
