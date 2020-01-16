@@ -108,6 +108,7 @@ class EventEditScreen: RobinVC {
 	}
 	
 	@objc func simulate() {
+		self.alerts.displayAlert(titled: .err, withDetail: "Not implemented", completion: nil)
 		
 	}
 	

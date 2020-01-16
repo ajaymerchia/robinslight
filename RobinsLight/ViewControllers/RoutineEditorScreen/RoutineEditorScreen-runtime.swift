@@ -201,41 +201,53 @@ extension RoutineEditorScreen: AVAudioPlayerDelegate, UIGestureRecognizerDelegat
 		
 		if sender.state == UIGestureRecognizer.State.ended {
 			// calculate unfuck-up-able targetOffset
-			let targetPosition = getTargetPosition()
-
-			var selectedIdx: Int!
-			for newSongIdx in (0..<self.timeBreaks.count - 1) {
-				if (timeBreaks[newSongIdx]..<timeBreaks[newSongIdx + 1]).contains(targetPosition) {
-					selectedIdx = newSongIdx
-					break
-				}
-			}
-			if selectedIdx == nil {
-				// we are at the last second of the app
-				stopRunTime()
-				return
-			}
-			self.currSongIdx = selectedIdx
-			self.buildPlayer()
-			self.player?.currentTime = targetPosition - self.timeBreaks[selectedIdx]
-			// reset manual offset
-
-			self.pendingOffset = 0
-			// actually update track seek for all channels and refresh views
-			UIView.animate(withDuration: 0.25) {
-				self.resetScrollers()
-			}
+			self.updatePlayheadLocationBasedOnUI()
 			
 			
 			return
 
 		}
-		
-		
 	}
 	
+	func updatePlayheadLocationBasedOnUI() {
+		let targetPosition = getTargetPosition()
+
+		var selectedIdx: Int!
+		for newSongIdx in (0..<self.timeBreaks.count - 1) {
+			if (timeBreaks[newSongIdx]..<timeBreaks[newSongIdx + 1]).contains(targetPosition) {
+				selectedIdx = newSongIdx
+				break
+			}
+		}
+		if selectedIdx == nil {
+			// we are at the last second of the app
+			stopRunTime()
+			return
+		}
+		self.currSongIdx = selectedIdx
+		self.buildPlayer()
+		self.player?.currentTime = targetPosition - self.timeBreaks[selectedIdx]
+		self.trackIndicator.text = self.getTargetPosition().clockStyleMilli
+		// reset manual offset
+
+		self.pendingOffset = 0
+		// actually update track seek for all channels and refresh views
+		UIView.animate(withDuration: 0.25) {
+			self.resetScrollers()
+		}
+	}
 	
-	
-	
+	func movePlayhead(toTimePosition time: TimeInterval) {
+		print("trgt", time)
+		print("curr", self.getTargetPosition())
+		
+		setScrollerOffset { (curr) -> (CGFloat) in
+			print("curr offset", curr)
+			return curr + RoutineEditorScreen.secondsToPixels * CGFloat((time - self.getTargetPosition()))
+		}
+		
+		self.resetScrollers()
+		
+	}
 
 }

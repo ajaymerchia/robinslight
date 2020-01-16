@@ -190,7 +190,7 @@ extension EventEditScreen {
 		
 	}
 	@objc func sUpdate(_ sender: UIButton) {
-		getTimeInterval(prefill: self.proposedEvent.timelineStart) { (s, e) in
+		getTimeInterval(type: "Start Time", prefill: self.proposedEvent.timelineStart) { (s, e) in
 			guard let s = s, e == nil else { self.alerts.displayAlert(titled: .err, withDetail: e, completion: nil); return }
 			self.proposedEvent.timelineStart = s
 			
@@ -198,7 +198,7 @@ extension EventEditScreen {
 		}
 	}
 	@objc func eUpdate(_ sender: UIButton) {
-		getTimeInterval(prefill: self.proposedEvent.timelineEnd) { (end, e) in
+		getTimeInterval(type: "End Time", prefill: self.proposedEvent.timelineEnd) { (end, e) in
 			guard let end = end, e == nil else { self.alerts.displayAlert(titled: .err, withDetail: e, completion: nil); return }
 			self.proposedEvent.timelineEnd = end
 			
@@ -235,25 +235,68 @@ extension EventEditScreen {
 	}
 	
 	
-	
-	
-	func getTimeInterval(prefill: TimeInterval?, completion: Response<TimeInterval>?) {
-		var prefillText: String? = prefill?.clockStyleMilli
-
-		
-		self.alerts.getTextInput(withTitle: "Please enter a timestamp.", andHelp: "Please format as mm:ss.SSS", andPlaceholder: prefillText ?? "01:23.456", placeholderAsText: prefillText != nil, completion: { (s) in
-			
-			let dateFormatter = DateFormatter()
-			dateFormatter.dateFormat = "mm:ss.SSS"
-			
-			guard let dateRepr = dateFormatter.date(from: s) else {
-				completion?(nil, "You did not format the duration properly")
-				return
+	@objc func processValueChange(for textfield: UITextField) {
+		guard var txt = textfield.text else { return }
+		if txt.contains(".") {
+			// do nothing, it should've been handled last time
+		} else {
+			if txt.count > 2 {
+				txt = txt.replacingOccurrences(of: ":", with: "")
+				
+				guard let num = Int(txt) else { return }
+				let mins = Int(num / 100)
+				let secs = num % 100
+				textfield.text = "\(mins):\(String(format: "%02d", secs))"
+				textfield.textColor = secs > 59 ? .red : .black
 			}
-			let time = dateRepr.timeIntervalSince1970.remainder(dividingBy: .hour)
-			completion?(time, nil)
-			
+		}
+	}
+	
+	func getTimeInterval(type: String, prefill: TimeInterval?, completion: Response<TimeInterval>?) {
+		var prefillText: String? = prefill?.clockStyleMilli
+		
+		let alert = UIAlertController(title: type, message: "Please enter a timestamp.", preferredStyle: .alert)
+		
+		alert.addTextField(configurationHandler: { textField in
+			textField.placeholder = prefillText
+			textField.keyboardType = .decimalPad
+			textField.addTarget(self, action: #selector(self.processValueChange(for:)), for: .editingChanged)
 		})
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		
+		alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
+				guard let response = alert.textFields?.first?.text else {
+						return
+				}
+				// parse response as timeinterval
+				
+			let split = response.split(separator: ":")
+			if split.count > 1 {
+				if let min = split.first, let sec = split.last,
+					let minT = Int(min), let secT = TimeInterval(sec) {
+					// process minutes and seconds
+					let finalT = TimeInterval(minT * 60) + secT
+					
+					completion?(finalT, nil)
+					
+					
+				} else {
+					completion?(nil, "Failed to parse input as time")
+				}
+				
+			} else {
+				if let time = TimeInterval(response) {
+					completion?(time, nil)
+				} else {
+					completion?(nil, "Failed to parse input as time")
+				}
+				
+			}
+			
+		}))
+		
+		self.present(alert, animated: true)
 	}
 	
 }

@@ -79,6 +79,12 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 				}),
 				ActionConfig(title: "Copy Event", style: .default, callback: {
 					self.copyEvent(e: event, sourceTrack: cell.editorIdx)
+				}),
+				ActionConfig(title: "Move Playhead to Start", style: .default, callback: {
+					self.movePlayhead(toTimePosition: event.timelineStart)
+				}),
+				ActionConfig(title: "Move Playhead to End", style: .default, callback: {
+					self.movePlayhead(toTimePosition: event.timelineEnd)
 				})
 			])
 			
@@ -164,9 +170,15 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 			scrollers.forEach { (sv) in
 				sv.contentOffset = scrollView.contentOffset
 			}
+			
+			if !isPlaying {
+				self.updatePlayheadLocationBasedOnUI()
+			}
 		}
 		
+		
+		
 	}
-	
+
 	
 }
