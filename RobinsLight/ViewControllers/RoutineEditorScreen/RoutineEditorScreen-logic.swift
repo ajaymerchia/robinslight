@@ -14,13 +14,65 @@ import MediaPlayer
 
 extension RoutineEditorScreen: MPMediaPickerControllerDelegate, UIDocumentPickerDelegate {
     
+	func copyEvent(e: Event, sourceTrack: Int) {
+		self.getAllDevices { (devices, _) in
+			guard var devices = devices else {
+				self.alerts.displayAlert(titled: .err, withDetail: "Could not load devices list.", completion: nil)
+				return
+			}
+			
+			let srcID = self.routine.deviceIDs[sourceTrack]
+			
+			devices.removeAll { (sourceDevice) -> Bool in
+				return sourceDevice.id == srcID
+			}
+			
+			self.alerts.showActionSheet(withTitle: "Which device would you like to copy this track to?", andDetail: nil, configs: devices.map({ (d) -> ActionConfig in
+				return ActionConfig(title: d.commonName, style: .default) {
+					
+					// create the event, add it to the routine, refresh the table, save the routine, open the editor,
+					guard let clonedEvent = e.copy() else {
+						self.alerts.displayAlert(titled: .err, withDetail: "Could not clone event", completion: nil)
+						return
+					}
+					guard let editorIdx = self.routine.deviceIDs.firstIndex(of: d.id) else {
+						self.alerts.displayAlert(titled: .err, withDetail: "Could not find target device index", completion: nil)
+						return
+					}
+					
+					let eCount = self.routine.deviceTracks[d.id]?.count ?? 0
+					
+					clonedEvent.name = "fx_\(d.id.prefix(3))_\(eCount)"
+					
+					self.routine.deviceTracks[d.id]?.append(clonedEvent)
+					
+					RobinCache.records(for: Routine.self).store(self.routine) { (err) in
+						guard err == nil else {
+							self.alerts.displayAlert(titled: .err, withDetail: err, completion: nil)
+							return
+						}
+						
+						self.table.reloadRows(at: [IndexPath(row: editorIdx, section: 1)], with: .automatic)
+						
+						
+						self.performSegue(withIdentifier: "2eventEdit", sender: (editorIdx, eCount))
+						
+					}
+					
+					
+					
+					
+				}
+			}))
+			
+		}
+		
+		
+	}
+	
 	func addEvent(in track: Int) {
 		self.performSegue(withIdentifier: "2eventEdit", sender: track)
 	}
-	
-	
-	
-	
 	
 	@objc func addNewAsset() {
 		self.addDelegatePurpose = .new

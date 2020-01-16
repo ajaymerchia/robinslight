@@ -86,6 +86,20 @@ class Event: DataBlob, TimelineObject, Comparable {
 		case name = "name"
 	}
 	
+	func copy() -> Event? {
+		let encoder = JSONEncoder()
+		let decoder = JSONDecoder()
+
+		do {
+			let jsonData = try encoder.encode(self)
+			let obj = try? decoder.decode(Event.self, from: jsonData)
+			return obj
+			
+		} catch {
+			return nil
+		}
+	}
+	
 	func encode(to encoder: Encoder) throws {
 		var values = encoder.container(keyedBy: CodingKeys.self)
 		var std = values.nestedContainer(keyedBy: StdInfoKeys.self, forKey: .std)

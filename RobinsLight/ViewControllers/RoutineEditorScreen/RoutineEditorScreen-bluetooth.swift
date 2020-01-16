@@ -28,7 +28,8 @@ extension RoutineEditorScreen: PiBluetoothAPIDelegate {
 				self.uploadRoutine(forDevice: device)
 			}),
 			ActionConfig(title: "Test Run on Device", style: .default, callback: {
-				self.playRoutine(forDevice: device)
+				print("Starting routine with a \(self.globalTrackOffset)s offset")
+				self.playRoutine(forDevice: device, refDate: Date().addingTimeInterval(-self.globalTrackOffset))
 				self.startRunTime()
 			})
 		]

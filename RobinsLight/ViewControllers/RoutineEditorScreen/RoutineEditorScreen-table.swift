@@ -69,7 +69,19 @@ extension RoutineEditorScreen: UITableViewDelegate, UITableViewDataSource, Timel
 		if cell.editorIdx == -1 {
 			self.editSongPosition(idx: idx)
 		} else {
-			self.performSegue(withIdentifier: "2eventEdit", sender: (cell.editorIdx, idx))
+			guard let event = self.routine.deviceTracks[self.routine.deviceIDs[cell.editorIdx]]?[idx] else {
+				self.alerts.displayAlert(titled: .err, withDetail: "Failed to load event", completion: nil)
+				return
+			}
+			self.alerts.showActionSheet(withTitle: event.name, andDetail: nil, configs: [
+				ActionConfig(title: "Edit Event", style: .default, callback: {
+					self.performSegue(withIdentifier: "2eventEdit", sender: (cell.editorIdx, idx))
+				}),
+				ActionConfig(title: "Copy Event", style: .default, callback: {
+					self.copyEvent(e: event, sourceTrack: cell.editorIdx)
+				})
+			])
+			
 		}
 	}
 	

@@ -32,6 +32,24 @@ extension RoutineEditorScreen {
 		self.masterDevices = []
 	}
 	
+	func getAllDevices(completion: Response<[Device]>?) {
+		var ds = [Device]()
+		
+		let g = DispatchGroup(count: self.routine.deviceIDs.count)
+		self.routine.deviceIDs.forEach { (id) in
+			RobinCache.records(for: Device.self).get(id: id) { (d, _) in
+				if let d = d { ds.append(d) }
+				g.leave()
+			}
+		}
+		
+		g.notify(queue: .main) {
+			completion?(ds, nil)
+		}
+		
+		
+	}
+	
 	@objc func openMasterPlayer() {
 		// puts a simple pause play interface over the table. Restricts scrolling in the main table. Still gives access to the slider.
 		func fail(err: String) {
@@ -47,9 +65,9 @@ extension RoutineEditorScreen {
 		
 		self.table.isScrollEnabled = false
 		self.isShowingPlayer = true
-		self.routine.deviceIDs.forEach { (id) in
-			RobinCache.records(for: Device.self).get(id: id) { (d, _) in
-				if let d = d { self.masterDevices.append(d) }
+		self.getAllDevices { (ds, _) in
+			if let ds = ds {
+				self.masterDevices = ds
 			}
 		}
 		
